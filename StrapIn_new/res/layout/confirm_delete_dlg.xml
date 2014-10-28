@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:background="@xml/dlg_black_bg"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        
+            <TextView
+                android:id="@+id/tv_friend_online_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="This action will delete the selected friend. Are you sure?"
+                android:textColor="#0be423"
+                android:textSize="12sp" />
+        </LinearLayout>
+   
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_confirm_delete_yes"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@xml/white_rounded"
+            android:layout_marginRight="5dp"
+            android:text="YES" />
+
+        <Button
+            android:id="@+id/btn_confirm_delete_no"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@xml/white_rounded"
+             android:layout_marginRight="5dp"
+            android:text="NO" />
+    </LinearLayout>
+
+</LinearLayout>

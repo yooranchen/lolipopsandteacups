@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:id="@+id/top1"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:orientation="vertical" >
+        </LinearLayout>
+        <!-- ....................      MAP start  ............................................. -->
+
+
+
+
+	<LinearLayout
+        android:id="@+id/ll_page_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/page_title_bg1"
+        android:gravity="center"
+         android:layout_below="@+id/top1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/lbl_page_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom1"
+            android:layout_below="@+id/ll_page_header"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:scrollingCache="false" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom1"
+            android:layout_below="@+id/top1"
+            android:background="@null" />
+        <!-- ................      MAP End  ............................................. -->
+        
+        <!-- ................     progressbar start  ............................................. -->
+
+        <include
+            android:layout_above="@+id/bottom1"
+            android:layout_below="@+id/top1"
+            layout="@layout/include_progress_bar" />
+
+        <!-- ................      progressbar End  ............................................. -->
+        <!-- ................      Use Profile start  ............................................. -->
+
+        <include
+            android:layout_above="@+id/bottom1"
+            android:layout_below="@+id/top1"
+            layout="@layout/include_user_profile" />
+
+        <!-- ................      Use Profile End  ............................................. -->
+        <!-- ................     Local Deals Start  ............................................. -->
+<include
+            android:layout_above="@+id/bottom1"
+            android:layout_below="@+id/top1"
+            layout="@layout/include_local_deals" />
+        <!-- ................     Local Deals End  ............................................. -->
+
+
+        <!-- ............................... Add friend Start ........................................... -->
+<include
+            android:layout_above="@+id/bottom1"
+            android:layout_below="@+id/top1"
+            layout="@layout/include_add_friend" />
+        
+        <!-- ............................... Add friend End ........................................... -->
+        <!-- ...........................Chat Start..................................................................... -->
+
+       <include
+            android:layout_above="@+id/bottom1"
+            android:layout_below="@+id/top1"
+            layout="@layout/include_chat_live" />
+        <!-- ..........................Chat end .................................................... -->
+
+        <LinearLayout
+            android:id="@+id/bottom1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/black_transparent_bg"
+            android:gravity="center"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </RelativeLayout>
+
+  
+<include layout="@layout/include_header"/>
+   
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/menu_bg" >
+
+      
+
+        <ImageView
+            android:id="@+id/iv_icon_friend_slider"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_friend_list" />
+
+        <ImageView
+            android:id="@+id/iv_icon_menu_slider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/icon_menu" />
+
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/footer1"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="3dp"
+        android:background="@null" >
+        <ImageView
+            android:id="@+id/iv_icon_talk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_talk" />
+        </RelativeLayout>
+
+  
+    <!-- ...................Friend section Start..................................... -->
+
+    <!-- <include layout="@layout/include_slider_section"/> -->
+    <!-- ...................Friend section End..................................... -->
+    <!-- ...................Message Notification section Start..................................... -->
+
+    <LinearLayout
+        android:id="@+id/layout_message_notification"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="65dp"
+        android:background="@drawable/rounded_corner"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:visibility="gone" >
+
+        <ListView
+            android:id="@+id/lv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:cacheColorHint="@null"
+            android:divider="#393939"
+            android:dividerHeight="1dp"
+            android:scrollbars="none" >
+        </ListView>
+    </LinearLayout>
+    <!-- ...................Message Notification section End..................................... -->
+
+</FrameLayout>

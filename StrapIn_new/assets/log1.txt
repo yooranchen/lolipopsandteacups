@@ -1,0 +1,87 @@
+{
+"first_name": "Yajneshwar",
+"last_name": "mandal",
+"age": "26",
+"city": "kolkata",
+"favorite_mountain": "gdhhd",
+"shred_style": "gfg",
+"about_me": "bhkh",
+
+   "purchased_deals":[
+      {
+         "deals_id":"123",
+         "deals_name":"Deals Name",
+         "image":"http://www.edenleefitness.com/wp-content/uploads/2013/06/deal.jpg"
+      },
+      {
+         "deals_id":"123",
+         "deals_name":"Deals Name",
+         "image":"http://www.highdefinitionwallpapers1080p.com/wp-content/uploads/2013/11/black-friday-shopping-deals-discounts.jpg"
+      },
+      {
+         "deals_id":"123",
+         "deals_name":"Deals Name",
+         "image":"http://www.socialpositives.com/wp-content/uploads/2013/06/Sales-and-Discounts.jpg"
+      },
+      {
+         "deals_id":"123",
+         "deals_name":"Deals Name",
+         "image":"http://www.shoptab.net/blog/wp-content/uploads/2011/11/daily-deal-ShopTab.jpg"
+      },
+      {
+         "deals_id":"123",
+         "deals_name":"Deals Name",
+         "image":"http://1.bp.blogspot.com/-QTcvOAa-MJI/Tt5y3b9wJ2I/AAAAAAAABNk/qmyZnqK4TPs/s1600/hotdeals.jpg"
+      }
+   ],
+   "gallery":[
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://www.hvsp.org/images/toboggan4sm.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      },
+      {
+         "id":"123",
+         "image":"http://hyakskipatrol.org/116-1685_IMG.JPG"
+      },
+      {
+         "id":"123",
+         "image":"http://explore.org/photos/2353/the-jackson-hole-ski-patrol-participating-in-an-av.jpg"
+      }
+   ]
+}

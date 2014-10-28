@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_friend_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/ll_page_title"
+    android:background="@drawable/black_transparent_bg"
+    android:visibility="visible" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/tab_bg"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|right"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_add_friend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tab_select"
+                        android:gravity="center|right"
+                        android:paddingRight="14dp"
+                        android:text="Add Friend"
+                        android:textColor="#00ccff"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_invite_friend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/tab_unselect"
+                        android:gravity="center"
+                        android:text="Invite Friend"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/tab_request"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/tab_unselect"
+                        android:gravity="center" >
+
+                        <FrameLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent" >
+
+                            <Button
+                                android:id="@+id/btn_request"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:background="@null"
+                                android:gravity="center|left"
+                                android:paddingLeft="10dp"
+                                android:text="Requests"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_pending_req_counter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|right"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="3dp"
+                                android:background="@drawable/request_notify"
+                                android:gravity="center|top"
+                                android:paddingTop="3dp"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                android:visibility="gone" />
+                        </FrameLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <!-- Add friend Search -->
+
+        <RelativeLayout
+            android:id="@+id/add_friend_search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_layout_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/seach_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible" >
+
+                <!--
+                        <EditText
+                        android:id="@+id/et_input_key_for_search_add_friends"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="Search"
+                        android:paddingLeft="15dp"
+                        style="@style/Holo.EditText"
+                        android:drawableRight="@drawable/search_icon"
+                        android:singleLine="true"
+                        android:textColor="#b9b9b9" />
+                -->
+
+                <EditText
+                    android:id="@+id/et_input_key_for_search_add_friends"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Search"
+                    android:paddingLeft="15dp"
+                    android:singleLine="true"
+                    android:textColor="#b9b9b9" >
+                </EditText>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/et_input_key_for_search_add_friends"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/search_icon" />
+            </RelativeLayout>
+        </RelativeLayout>
+        <!-- End -->
+
+
+        <!-- Invite friend Search box -->
+
+        <RelativeLayout
+            android:id="@+id/invite_friend_search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_layout_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/seach_bg"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible" >
+
+                <EditText
+                    android:id="@+id/et_input_key_for_search_invite_friends"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Search"
+                    android:paddingLeft="15dp"
+                    android:singleLine="true"
+                    android:textColor="#b9b9b9" >
+                </EditText>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/et_input_key_for_search_invite_friends"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/search_icon" />
+            </RelativeLayout>
+        </RelativeLayout>
+        <!-- End -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/lv_facebook_friends"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="@null"
+                android:dividerHeight="1dp"
+                android:scrollbars="none"
+                android:visibility="gone" >
+            </ListView>
+
+            <ListView
+                android:id="@+id/lv_invite_friend_list"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone" >
+            </ListView>
+
+            <ListView
+                android:id="@+id/lv_pending_friend_req"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone" >
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

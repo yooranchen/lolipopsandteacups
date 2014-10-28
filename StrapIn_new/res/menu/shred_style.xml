@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/all_mountain"      
+        android:title="@string/all_mountain"/>
+    <item
+        android:id="@+id/park_bum"
+        android:title="@string/park_bum"/>
+    <item
+        android:id="@+id/pow_pow_bum"       
+        android:title="@string/pow_pow_bum"/>
+    <item
+        android:id="@+id/gnar"
+        android:title="@string/gnar"/>
+
+</menu>

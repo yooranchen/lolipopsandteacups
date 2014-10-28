@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@xml/profile_edit_dlg__rounded_corner"
+    android:orientation="vertical"
+    android:paddingBottom="10dp" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="15dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
+        android:background="#171717"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_margin="1dp"
+            android:gravity="center|left"
+            android:paddingLeft="10dp"
+            android:text="PROFILE"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_margin="1dp"
+            android:gravity="center|left"
+            android:paddingLeft="4dp"
+            android:text="EDIT"
+            android:textColor="#2cb7ff"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="43dp"
+        android:layout_marginLeft="15dp"
+        android:gravity="center|left" >
+
+        <LinearLayout
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:gravity="center" >
+
+            <snowmada.main.view.CircleImageView
+                android:id="@+id/iv_profile_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:border_color="#ffffff"
+                app:border_width="1dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="15dp"
+        android:text="First Name:"
+        android:textColor="#2cb7ff"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_fname"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="2dp"
+        android:background="@xml/black_rounded_corner"
+        android:imeOptions="actionNext"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:text="Yajneshwar"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:paddingLeft="15dp"
+        android:text="Last Name:"
+        android:textColor="#2cb7ff"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_lname"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="2dp"
+        android:background="@xml/black_rounded_corner"
+        android:imeOptions="actionNext"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:text="Mandal"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:paddingLeft="15dp"
+        android:text="Age"
+        android:textColor="#2cb7ff"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_age"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="2dp"
+        android:background="@xml/black_rounded_corner"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:text="27"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:paddingLeft="15dp"
+        android:text="Location:"
+        android:textColor="#2cb7ff"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_location"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="2dp"
+        android:background="@xml/black_rounded_corner"
+        android:imeOptions="actionNext"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:text="Kolkata"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="15dp"
+        android:text="Favorite Mountain"
+        android:textColor="#2cb7ff"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_fav_mountain"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="2dp"
+        android:background="@xml/black_rounded_corner"
+        android:imeOptions="actionNext"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="15dp"
+        android:text="Shred Style"
+        android:textColor="#2cb7ff"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="5dp"
+        android:background="@xml/black_rounded_corner"
+        android:textColor="@color/white" >
+
+        <Spinner
+            android:id="@+id/spinner_shared_style"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/dropdown_inputbox"
+            android:paddingLeft="5dp"
+            android:prompt="@string/select_mountain" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="15dp"
+        android:text="About Me"
+        android:textColor="#2cb7ff"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/et_about_me"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="2dp"
+        android:background="@xml/black_rounded_corner"
+        android:gravity="top|left"
+        android:imeOptions="actionDone"
+        android:inputType="textMultiLine"
+        android:padding="5dp"
+        android:paddingLeft="5dp"
+        android:text="test"
+        android:textColor="@color/white"
+        android:textSize="11sp" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_timepicker"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:background="@xml/white_rounded"
+            android:gravity="center"
+            android:text="SUBMIT" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="@xml/white_rounded"
+            android:gravity="center"
+            android:text="CANCEL" />
+    </RelativeLayout>
+
+</LinearLayout>

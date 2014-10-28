@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/main"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/receiver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+       android:layout_marginRight="5dp"
+       android:layout_marginLeft="5dp"
+        android:orientation="horizontal" >
+
+      
+        <TextView
+            android:id="@+id/receiver_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+             android:textColor="#2cb7ff"
+            android:layout_marginLeft="2dp"
+            android:layout_alignParentLeft="true"
+            android:visibility="gone"
+            android:text="Yajneshwar:" />
+        
+          <TextView
+             android:id="@+id/receiver_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/black"
+            android:paddingLeft="15dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+             android:background="@drawable/chat_left_bubble"
+           android:layout_toRightOf="@+id/iv_avatar_rcver"
+            android:layout_marginLeft="10dp"
+            android:text="HI! How are you! What are you doing now. " />
+
+          <ImageView
+              android:id="@+id/iv_avatar_rcver"
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:layout_alignParentLeft="true"
+              android:layout_centerVertical="true"
+               android:adjustViewBounds="true"
+              android:scaleType="fitXY"
+              android:src="@drawable/no_image" />
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/sender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+         android:layout_marginRight="5dp"
+       android:orientation="horizontal" >
+
+      
+        <TextView
+            android:id="@+id/sender_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+             android:textColor="#2cb7ff"
+            android:layout_marginRight="2dp"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:text=":Yajneshwar" />
+        
+        
+        
+          <TextView
+             android:id="@+id/sender_msg"
+              android:layout_toLeftOf="@+id/iv_user_img"
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="10dp"
+             android:background="@drawable/chat_right_bubble"
+            android:layout_marginLeft="10dp"
+            android:text="HI! How are you! What are you doing now. "  />
+
+          <ImageView
+              android:id="@+id/iv_user_img"
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+               android:layout_alignParentRight="true"
+              android:layout_centerVertical="true"
+              android:adjustViewBounds="true"
+              android:scaleType="fitXY"
+              android:src="@drawable/no_image" />
+
+    </RelativeLayout>
+   
+
+</LinearLayout>
