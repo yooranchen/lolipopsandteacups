@@ -16,6 +16,7 @@ import snowmada.main.fragment.DealFragment.setDealsOnMapListener;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -31,13 +32,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-public class BaseActivity extends FragmentActivity implements OnClickListener,OnFriendDialogListener,OnMapLongClickListener,OnMeetupSubmitListener,setDealsOnMapListener,CustomDialogInterface{
+public class BaseActivity extends FragmentActivity implements OnClickListener, OnFriendDialogListener, OnMapLongClickListener, OnMeetupSubmitListener, setDealsOnMapListener, CustomDialogInterface {
 	public MyApplication application;
 	public ImageLoader imageLoader;
-	 public SlidingMenu slidingmenu;
-	 public  Marker marker;
-	 private ProgressDialog mProgressDialog = null;	
-	
+	public SlidingMenu slidingmenu;
+	public Marker marker;
+	private ProgressDialog mProgressDialog = null;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		application = (MyApplication) getApplication();
@@ -45,27 +46,26 @@ public class BaseActivity extends FragmentActivity implements OnClickListener,On
 		imageLoader = new ImageLoader(this);
 		slidingmenu = new SlidingMenu(this);
 	}
-	
-	public Spanned  getCustomText(String s1, String s2){
-		return Html.fromHtml("<font color=\"#ffffff\">"+s1+"</font>&nbsp;&nbsp;<font color=\"#28b6ff\">"+s2+"</font>");
-	}	
-	public void onClick(View v) {}
-	
+
+	public Spanned getCustomText(String s1, String s2) {
+		return Html.fromHtml("<font color=\"#ffffff\">" + s1 + "</font>&nbsp;&nbsp;<font color=\"#28b6ff\">" + s2 + "</font>");
+	}
+
+	public void onClick(View v) {
+	}
+
 	public boolean isNetworkConnected() {
 		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetworkInfo = connectivityManager
-				.getActiveNetworkInfo();
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
-	
-	public void showMsg(String msg){
+
+	public void showMsg(String msg) {
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
-	
-	
-	
-	public void showProgressBar(){
-        runOnUiThread(new Runnable() {
+
+	public void showProgressBar() {
+		runOnUiThread(new Runnable() {
 			public void run() {
 				mProgressDialog = new ProgressDialog(BaseActivity.this);
 				mProgressDialog.setMessage("Please wait...");
@@ -76,15 +76,15 @@ public class BaseActivity extends FragmentActivity implements OnClickListener,On
 			}
 		});
 	}
-	
-	public void dismissProgressBar(){
-        runOnUiThread(new Runnable() {
+
+	public void dismissProgressBar() {
+		runOnUiThread(new Runnable() {
 			public void run() {
 				mProgressDialog.cancel();
 			}
 		});
 	}
-	
+
 	@SuppressLint("SimpleDateFormat")
 	public long getCurrentDate() {
 		try {
@@ -94,21 +94,21 @@ public class BaseActivity extends FragmentActivity implements OnClickListener,On
 		}
 		return 0;
 	}
-	
-	public SimpleDateFormat  getSDF(){
+
+	public SimpleDateFormat getSDF() {
 		return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	}
-	
-	public long getExpireTime(String date, String time){
+
+	public long getExpireTime(String date, String time) {
 		try {
-			return ((getSDF().parse(date + " " + time).getTime())+3600000);
+			return ((getSDF().parse(date + " " + time).getTime()) + 3600000);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
-	public long setMeetUpTime(String date, String time){
+
+	public long setMeetUpTime(String date, String time) {
 		try {
 			return ((getSDF().parse(date + " " + time).getTime()));
 		} catch (ParseException e) {
@@ -117,12 +117,32 @@ public class BaseActivity extends FragmentActivity implements OnClickListener,On
 		return 0;
 	}
 
-	public void onTack(String id) {}	
-	public void onViewProfile(String id) {}	
-	public void onChat(String id) {}
-	public void onDelete(String id) {}	
-	public void onMapLongClick(LatLng arg0) {}
-	public void onMeetUpSubmit(String id, String name, String location,	String description, String time, String lat, String lng,String meetupdate) {}
-	public void loadDealsonMap(ArrayList<GoodDeals> mDealsArr) {}	
-	public void OnEmergencyConformDlg() {	}
+	public Typeface setFont() {
+		Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/aircruiser.ttf");
+		return custom_font;
+	}
+
+	public void onTack(String id) {
+	}
+
+	public void onViewProfile(String id) {
+	}
+
+	public void onChat(String id) {
+	}
+
+	public void onDelete(String id) {
+	}
+
+	public void onMapLongClick(LatLng arg0) {
+	}
+
+	public void onMeetUpSubmit(String id, String name, String location, String description, String time, String lat, String lng, String meetupdate) {
+	}
+
+	public void loadDealsonMap(ArrayList<GoodDeals> mDealsArr) {
+	}
+
+	public void OnEmergencyConformDlg() {
+	}
 }

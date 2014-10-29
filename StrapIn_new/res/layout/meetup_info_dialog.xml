@@ -177,6 +177,7 @@
             android:layout_alignParentLeft="true"
             android:background="@xml/white_rounded"
             android:gravity="center"
+            android:textColor="#ffffff"
             android:text="SUBMIT" />
 
         <Button
@@ -186,6 +187,7 @@
             android:layout_alignParentRight="true"
             android:background="@xml/white_rounded"
             android:gravity="center"
+             android:textColor="#ffffff"
             android:text="CANCEL" />
     </RelativeLayout>
 

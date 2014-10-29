@@ -116,6 +116,11 @@ public class GCMIntentService extends GCMBaseIntentService {
 				context.sendBroadcast(intent);
 				
 				//showNotification(context, json.getString("message"),intent);
+			}else if(json.getInt("status") == 14){ // Meet UP
+				PendingIntent intent = PendingIntent.getActivity(context,0, new Intent(), 0);
+				showNotification(context, json.getString("message"),intent);
+				
+				//showNotification(context, json.getString("message"),intent);
 			}
 
 		} catch (JSONException e) {

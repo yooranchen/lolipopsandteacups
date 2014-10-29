@@ -107,11 +107,11 @@
         <service android:name=".ServerStatus" >
         </service>
 
-        <receiver android:name=".BootCompletedIntentReceiver" >
+       <!--  <receiver android:name=".BootCompletedIntentReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
+        </receiver> -->
         <receiver android:name="snowmada.main.view.SkiPatrolAlertReceiver" >
             <intent-filter>
                 <action android:name="SNOMADA_SKI_PATROL_ALERT_DIALOG" />

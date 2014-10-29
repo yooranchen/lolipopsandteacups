@@ -38,7 +38,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,6 +54,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -56,6 +65,8 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -111,6 +122,9 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	public ArrayList<GoodDeals> mDealsArr = new ArrayList<GoodDeals>();
 	public boolean pushSendOnFirstRequestTrack = true;
 	public String ski_patroler_id, name;
+	private RadioGroup rgViews;
+	private Bitmap ic_bitmap = null;
+	Bitmap bhalfsize;
 
 	/*
 	 * private Button btn_text; boolean flag = false;
@@ -123,15 +137,17 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		if (application.getUserinfo().ski_launch) {
 			handler2.sendEmptyMessageDelayed(1, 2000);
 		}
-		if(isNetworkConnected())
-		new SignInAsyncTask().execute();
+		if (isNetworkConnected())
+			new SignInAsyncTask().execute();
 		getPushNotificationDeviceID();
 
 	}
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
+		setCurrentDateOnView();
 		switch (id) {
+
 		case TIME_DIALOG_ID:
 			return new TimePickerDialog(this, timePickerListener, hour, minute, true);
 		case DATE_DIALOG_ID:
@@ -159,6 +175,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
 		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+
 			year = selectedYear;
 			month = selectedMonth;
 			day = selectedDay;
@@ -179,6 +196,8 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		year = c.get(Calendar.YEAR);
 		month = c.get(Calendar.MONTH);
 		day = c.get(Calendar.DAY_OF_MONTH);
+		hour = c.get(Calendar.HOUR_OF_DAY);
+		minute = c.get(Calendar.MINUTE);
 	}
 
 	public void getViewbyId() {
@@ -210,7 +229,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		tv_page_title = (TextView) findViewById(R.id.tv_page_title);
 
 		iv_ski_patrol = (ImageView) findViewById(R.id.iv_ski_patrol);
-
+		rgViews = (RadioGroup) findViewById(R.id.rg_views);
 		map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 		map.setMyLocationEnabled(true);
 		map.getUiSettings().setCompassEnabled(true);
@@ -236,8 +255,24 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 
 			@Override
 			public void onOpened() {
-				new FriendListAsynctask().execute();
+				if (isNetworkConnected()) {
+					new FriendListAsynctask().execute();
+				}
 
+			}
+		});
+
+		rgViews.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if (checkedId == R.id.rb_normal) {
+					map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+				} else if (checkedId == R.id.rb_satellite) {
+					map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+				} else if (checkedId == R.id.rb_terrain) {
+					map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+				}
 			}
 		});
 
@@ -255,6 +290,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			break;
 		case R.id.ll_meet_up:
 			displayView(0);
+
 			break;
 		case R.id.ll_chat:
 			displayView(1);
@@ -312,22 +348,28 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		case 0:
 			isLongTouchEnableOnMap = true;
 			tv_page_title.setText(getCustomText("MEETUP", "LOCATION"));
+			rgViews.setVisibility(View.VISIBLE);
 			break;
 		case 1:
 			tv_page_title.setText(getCustomText("LIVE", "CHAT"));
+			rgViews.setVisibility(View.GONE);
 			break;
 		case 2:
 			tv_page_title.setText(getCustomText("GOOD", "DEALS"));
+			rgViews.setVisibility(View.GONE);
 			break;
 		case 3:
 			isLongTouchEnableOnMap = false;
 			tv_page_title.setText(getCustomText("TRACK", "FRIENDS"));
+			rgViews.setVisibility(View.VISIBLE);
 			break;
 		case 4:
 			tv_page_title.setText(getCustomText("ADD", "FRIENDS"));
+			rgViews.setVisibility(View.GONE);
 			break;
 		case 5:
 			tv_page_title.setText(getCustomText("VIEW", "PROFILE"));
+			rgViews.setVisibility(View.GONE);
 			break;
 		}
 
@@ -409,7 +451,14 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 
 					System.out.println("!!! " + json.toString());
 					if (json != null) {
-						updateMap(Double.valueOf(json.getString("lat")), Double.valueOf(json.getString("lng")), name);
+						if (ic_bitmap != null) {
+
+							updateMap(Double.valueOf(json.getString("lat")), Double.valueOf(json.getString("lng")), name, ic_bitmap);
+						} else {
+							ic_bitmap = getBitmapFromURL("https://graph.facebook.com/" + trackuserId + "/picture");
+							updateMap(Double.valueOf(json.getString("lat")), Double.valueOf(json.getString("lng")), name, ic_bitmap);
+						}
+
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -421,7 +470,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		t.start();
 	}
 
-	public void updateMap(final Double lat, final Double lng, final String name) {
+	public void updateMap(final Double lat, final Double lng, final String name, final Bitmap b) {
 		runOnUiThread(new Runnable() {
 
 			public void run() {
@@ -430,7 +479,8 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 				if (marker != null) {
 					marker.remove();
 				}
-				marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title("Name:" + name).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).icon(BitmapDescriptorFactory.fromResource(R.drawable.friend)));
+				/* bhalfsize=Bitmap.createScaledBitmap(b, b.getWidth()*4,b.getHeight()*4, false);*/
+				marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title("Name:" + name).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).icon(BitmapDescriptorFactory.fromBitmap(b)));
 				marker.showInfoWindow();
 				map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 16));
 			}
@@ -589,8 +639,8 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			progressBar.setVisibility(View.GONE);
-			if(isNetworkConnected())
-			new FriendListAsynctask().execute();
+			if (isNetworkConnected())
+				new FriendListAsynctask().execute();
 		}
 	}
 
@@ -610,7 +660,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 					JSONArray arr = response.getJSONArray("friends");
 					for (int j = 0; j < arr.length(); j++) {
 						JSONObject c = arr.getJSONObject(j);
-						friendArr.add(new FriendBean(c.getString("userid"), c.getString("first_name"), c.getString("last_name"),Integer.parseInt(c.getString("track"))==1?true:false));
+						friendArr.add(new FriendBean(c.getString("userid"), c.getString("first_name"), c.getString("last_name"), Integer.parseInt(c.getString("track")) == 1 ? true : false));
 					}
 				} else {
 					friendArr.clear();
@@ -634,7 +684,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 					if (result != null) {
 						application.setFriendArr(result);
 						for (int i = 0; i < result.size(); i++) {
-							ll_friends.addView(new FriendView(HomeView.this, result.get(i).getUserId(), result.get(i).getFirstName(), result.get(i).getLastName(),result.get(i).isTrack()).mView);
+							ll_friends.addView(new FriendView(HomeView.this, result.get(i).getUserId(), result.get(i).getFirstName(), result.get(i).getLastName(), result.get(i).isTrack()).mView);
 						}
 					}
 
@@ -644,7 +694,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			if (isMeetUpCall) {
 				syncMeetUpLocation(isMeetUpCall);
 				isMeetUpCall = false;
-				//new GoodDealsWeb().execute();
+				// new GoodDealsWeb().execute();
 
 			}
 		}
@@ -815,69 +865,88 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		super.onDestroy();
 	}
 
-/*	public class GoodDealsWeb extends AsyncTask<Boolean, Void, Boolean> {
+	/*
+	 * public class GoodDealsWeb extends AsyncTask<Boolean, Void, Boolean> {
+	 * 
+	 * @Override protected Boolean doInBackground(Boolean... params) { boolean
+	 * flag = false; try { JSONObject jsonObject = new JSONObject();
+	 * jsonObject.put("user_id", application.getUserinfo().userId); JSONObject
+	 * json = HttpClient.SendHttpPost(UrlCons.GOOD_DEALS.getUrl(), jsonObject);
+	 * 
+	 * if (json != null) { flag = json.getBoolean("status"); if (flag) {
+	 * JSONArray arr = json.getJSONArray("data"); for (int i = 0; i <
+	 * arr.length(); i++) { JSONObject c = arr.getJSONObject(i); long markerid =
+	 * System.currentTimeMillis() + new Random().nextInt(1000); String id =
+	 * "11"; String name = c.getString("name"); String advt_name =
+	 * c.getString("advt_name"); String address = c.getString("address"); Double
+	 * lat = Double.valueOf(c.getString("lat")); Double lng =
+	 * Double.valueOf(c.getString("lng"));
+	 * 
+	 * String url = UrlCons.BANNER_ADD.getUrl() + c.getString("advt_image");
+	 * Bitmap bitmap; bitmap = getBitmapFromURL(url);
+	 * 
+	 * String desc = c.getString("description"); mDealsArr.add(new GoodDeals(""
+	 * + markerid, id, name, advt_name, address, lat, lng, bitmap, url, desc));
+	 * } } }
+	 * 
+	 * } catch (JSONException e) { e.printStackTrace(); return flag; } catch
+	 * (NumberFormatException e) { e.printStackTrace(); return flag; } return
+	 * flag; }
+	 * 
+	 * @Override protected void onPostExecute(Boolean status) { if (status) {
+	 * for (int i = 0; i < mDealsArr.size(); i++) { marker = map.addMarker(new
+	 * MarkerOptions().position(new LatLng(mDealsArr.get(i).getLat(),
+	 * mDealsArr.get(i).getLng())).title("Name:" +
+	 * mDealsArr.get(i).getAdvtName()).snippet("Price :" + "100$\n" +
+	 * "Description : " + mDealsArr.get(i).getDescription() + "\n" +
+	 * "BUY it now?"
+	 * ).icon(BitmapDescriptorFactory.fromBitmap(mDealsArr.get(i).getImage())));
+	 * markerHas.put(marker, mDealsArr.get(i).getMarkerId()); } } } }
+	 */
 
-		@Override
-		protected Boolean doInBackground(Boolean... params) {
-			boolean flag = false;
-			try {
-				JSONObject jsonObject = new JSONObject();
-				jsonObject.put("user_id", application.getUserinfo().userId);
-				JSONObject json = HttpClient.SendHttpPost(UrlCons.GOOD_DEALS.getUrl(), jsonObject);
-
-				if (json != null) {
-					flag = json.getBoolean("status");
-					if (flag) {
-						JSONArray arr = json.getJSONArray("data");
-						for (int i = 0; i < arr.length(); i++) {
-							JSONObject c = arr.getJSONObject(i);
-							long markerid = System.currentTimeMillis() + new Random().nextInt(1000);
-							String id = "11";
-							String name = c.getString("name");
-							String advt_name = c.getString("advt_name");
-							String address = c.getString("address");
-							Double lat = Double.valueOf(c.getString("lat"));
-							Double lng = Double.valueOf(c.getString("lng"));
-
-							String url = UrlCons.BANNER_ADD.getUrl() + c.getString("advt_image");
-							Bitmap bitmap;
-							bitmap = getBitmapFromURL(url);
-
-							String desc = c.getString("description");
-							mDealsArr.add(new GoodDeals("" + markerid, id, name, advt_name, address, lat, lng, bitmap, url, desc));
-						}
-					}
-				}
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-				return flag;
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				return flag;
-			}
-			return flag;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean status) {
-			if (status) {
-				for (int i = 0; i < mDealsArr.size(); i++) {
-					marker = map.addMarker(new MarkerOptions().position(new LatLng(mDealsArr.get(i).getLat(), mDealsArr.get(i).getLng())).title("Name:" + mDealsArr.get(i).getAdvtName()).snippet("Price :" + "100$\n" + "Description : " + mDealsArr.get(i).getDescription() + "\n" + "BUY it now?").icon(BitmapDescriptorFactory.fromBitmap(mDealsArr.get(i).getImage())));
-					markerHas.put(marker, mDealsArr.get(i).getMarkerId());
-				}
-			}
-		}
-	}*/
-
-	public static Bitmap getBitmapFromURL(String src) {
+	public  Bitmap getBitmapFromURL(String src) {
 		try {
 			InputStream in = new java.net.URL(src).openStream();
-			return BitmapFactory.decodeStream(in);
+			Bitmap bi =  getCircularBitmap(BitmapFactory.decodeStream(in));
+			
+			 bhalfsize=Bitmap.createScaledBitmap(bi, bi.getWidth()*4,bi.getHeight()*4, false);
+			 return bhalfsize;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static Bitmap getCircularBitmap(Bitmap bitmap) {
+	    Bitmap output;
+
+	    if (bitmap.getWidth() > bitmap.getHeight()) {
+	        output = Bitmap.createBitmap(bitmap.getHeight(), bitmap.getHeight(), Config.ARGB_8888);
+	    } else {
+	        output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getWidth(), Config.ARGB_8888);
+	    }
+
+	    Canvas canvas = new Canvas(output);
+
+	    final int color = 0xff424242;
+	    final Paint paint = new Paint();
+	    final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+	    float r = 0;
+
+	    if (bitmap.getWidth() > bitmap.getHeight()) {
+	        r = bitmap.getHeight() / 2;
+	    } else {
+	        r = bitmap.getWidth() / 2;
+	    }
+
+	    paint.setAntiAlias(true);
+	    canvas.drawARGB(0, 0, 0, 0);
+	    paint.setColor(color);
+	    canvas.drawCircle(r, r, r, paint);
+	    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+	    canvas.drawBitmap(bitmap, rect, rect, paint);
+	    return output;
 	}
 
 	public void OnEmergencyConformDlg() {
@@ -982,6 +1051,25 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 				new FriendListAsynctask().execute();
 			}
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_logout:
+			application.getUserinfo().setSession(false);
+			Intent i = new Intent(HomeView.this, SigninView.class);
+			startActivity(i);
+			finish();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

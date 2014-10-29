@@ -1,6 +1,7 @@
 package snowmada.main.adapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONObject;
 
@@ -32,7 +33,7 @@ public class FriendAdapter extends ArrayAdapter<String> {
 		public void onFiendReqSend(int val);
 	}
 
-	private ArrayList<String> mItems = new ArrayList<String>();
+	private List<String> mItems = new ArrayList<String>();
 	private ViewHolder mHolder;
 	private BaseActivity activity;
 	public String responseMsg;
@@ -40,7 +41,7 @@ public class FriendAdapter extends ArrayAdapter<String> {
 	private FriendFragment friendfragment;
 	public int pos;
 
-	public FriendAdapter(BaseActivity activity,FriendFragment friendfragment, int textViewResourceId, ArrayList<String> items) {
+	public FriendAdapter(BaseActivity activity,FriendFragment friendfragment, int textViewResourceId, List<String> items) {
 		super(activity, textViewResourceId, items);
 		this.mItems = items;
 		this.activity = activity;
@@ -49,7 +50,7 @@ public class FriendAdapter extends ArrayAdapter<String> {
 		listener = (onFriendRequestSend) friendfragment;
 	}
 
-	public ArrayList<String> getData() {
+	public List<String> getData() {
 		return mItems;
 	}
 

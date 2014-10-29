@@ -100,7 +100,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:gravity="center"
+            android:gravity="center|right"
             android:orientation="vertical"
             android:padding="3dp" >
 
@@ -140,7 +140,7 @@
             android:src="@drawable/icon_menu" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <!-- <RelativeLayout
         android:id="@+id/ll_talk_icon"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
@@ -149,14 +149,14 @@
         android:layout_marginBottom="3dp"
         android:background="@null" >
 
-        <!-- <ImageView
+        <ImageView
             android:id="@+id/iv_talk_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_talk" /> -->
-    </RelativeLayout>
+            android:src="@drawable/icon_talk" />
+    </RelativeLayout> -->
 
     <!-- Footer end -->
     <!-- Body Start -->
@@ -213,6 +213,32 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" 
                 android:visibility="invisible"/>
+            
+            <RadioGroup
+        android:id="@+id/rg_views"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+ 
+        <RadioButton
+            android:id="@+id/rb_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_rb_normal"
+            android:checked="true" />
+ 
+        <RadioButton
+            android:id="@+id/rb_satellite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_rb_satellite" />
+        <RadioButton
+            android:id="@+id/rb_terrain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_rb_terrain" />
+ 
+    </RadioGroup>
         </RelativeLayout>
     </LinearLayout>
     <!-- Body End -->

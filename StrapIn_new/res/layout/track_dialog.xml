@@ -55,88 +55,97 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <LinearLayout
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_marginTop="10dp" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               android:gravity="left"
-               android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <Button
-                    android:id="@+id/btn_track"
-                    android:layout_width="80dp"
-                    android:layout_height="28dp"
-                    android:layout_marginRight="2dp"
-                    android:background="@xml/white_rounded"
-                    android:text="SUBMIT" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center|top"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <Button
-                    android:id="@+id/btn_chat"
-                    android:layout_width="80dp"
-                    android:layout_height="28dp"
-                    android:background="@xml/white_rounded"
-                    android:text="CHAT" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:layout_marginTop="3dp"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:gravity="left"
-                android:orientation="vertical" >
-                 <Button
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_track"
+                        android:layout_width="80dp"
+                        android:layout_height="28dp"
+                        android:layout_marginRight="2dp"
+                        android:background="@xml/white_rounded"
+                        android:text="TRACK"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_delete"
+                        android:layout_width="80dp"
+                        android:layout_height="28dp"
+                        android:background="@xml/white_rounded"
+                        android:text="DELETE"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:orientation="vertical" >
+
+                    <!--
+            <Button
             android:id="@+id/btn_view_frofile"
             android:layout_width="80dp"
             android:layout_height="28dp"
             android:background="@xml/white_rounded"
             android:text="PROFILE" />
-            </LinearLayout>
+                    -->
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:gravity="center|bottom"
-                android:orientation="vertical" >
-                  <Button
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|bottom"
+                    android:orientation="vertical" >
+
+                    <!--
+            <Button
             android:id="@+id/btn_delete"
             android:layout_width="80dp"
              android:layout_height="28dp"
             android:background="@xml/white_rounded"
             android:text="DELETE" />
+                    -->
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

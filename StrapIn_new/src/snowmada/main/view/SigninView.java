@@ -54,6 +54,7 @@ public class SigninView extends BaseActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 
 		uiHelper = new UiLifecycleHelper(this, callback);
 		uiHelper.onCreate(savedInstanceState);
@@ -64,7 +65,12 @@ public class SigninView extends BaseActivity {
 		setContentView(R.layout.signin);
 		loginButton = (LoginButton) findViewById(R.id.login_button);
 		signin_progress = (ProgressBar) findViewById(R.id.signin_progress);
-
+		Session session = Session.getActiveSession();
+    	if (session != null){
+    	     session.closeAndClearTokenInformation();
+    	     session = null;
+    	     
+    	}
 		loginButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
 			public void onUserInfoFetched(GraphUser user) {
 				SigninView.this.user = user;
