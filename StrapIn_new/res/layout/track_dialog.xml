@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="220dp"
     android:layout_height="wrap_content"
     android:background="@xml/dlg_black_bg"
@@ -17,15 +18,14 @@
         <LinearLayout
             android:layout_width="62dp"
             android:layout_height="62dp"
-            android:background="@color/white"
             android:gravity="center" >
 
-            <ImageView
+            <snowmada.main.view.CircleImageView
                 android:id="@+id/iv_image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image" />
+                app:border_color="#ffffff"
+                app:border_width="2dp" />
         </LinearLayout>
 
         <LinearLayout

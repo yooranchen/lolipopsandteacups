@@ -14,6 +14,7 @@ public class MyApplication extends Application {
 	public UserInfo userinfo;
 	public GoogleMap map;
 	public ArrayList<FriendBean> friendArr;
+	//public boolean isFriendRefresh = false;
 	
 	public TrackLocation track;
 	
@@ -49,7 +50,15 @@ public class MyApplication extends Application {
 	public void setTrack(TrackLocation track) {
 		this.track = track;
 	}
-	
+
+	/*public boolean isFriendRefresh() {
+		return isFriendRefresh;
+	}
+
+	public void setFriendRefresh(boolean isFriendRefresh) {
+		this.isFriendRefresh = isFriendRefresh;
+	}
+	*/
 	
 	
 	

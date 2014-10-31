@@ -29,8 +29,8 @@ public class DlgSkiPatrolConfirmation extends Dialog implements android.view.Vie
 	setCancelable(true);
 	btn_ok = (Button) findViewById(R.id.btn_ok);
 	btn_cancel = (Button)findViewById(R.id.btn_cancel);
-	btn_ok.setText(Html.fromHtml("<font color=\"#ffffff\">O</font><font color=\"#28b6ff\">K</font>"));
-	btn_cancel.setText(Html.fromHtml("<font color=\"#ffffff\">CAN</font><font color=\"#28b6ff\">CEL</font>"));
+	btn_ok.setTypeface(base.setFont());
+	btn_cancel.setTypeface(base.setFont());
 	btn_ok.setOnClickListener(this);
 	btn_cancel.setOnClickListener(this);
     }

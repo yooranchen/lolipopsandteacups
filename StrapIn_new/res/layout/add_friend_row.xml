@@ -46,7 +46,7 @@
                 android:gravity="center|left"
                 android:singleLine="true"
                 android:text="Yajneshwar Mandal"
-                android:textColor="#2cb7ff"
+                android:textColor="#ff0000"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 

@@ -66,7 +66,7 @@
                         android:gravity="top|left"
                         android:singleLine="true"
                         android:text="Yajneshwar Mandal"
-                        android:textColor="#2cb7ff"
+                        android:textColor="#ff0000"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -131,8 +131,8 @@
                         android:layout_marginLeft="3dp"
                         android:layout_marginTop="7dp"
                         android:button="@xml/custom_check_updated"
-                        android:visibility="invisible"
-                        android:checked="true" />
+                        android:checked="true"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -151,11 +151,20 @@
                         android:background="@drawable/yes_no_bg"
                         android:gravity="center" >
 
-                        <ImageView
+                        <!--
+                             <ImageView
                             android:id="@+id/imageView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/text_yes" />
+                        -->
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="YES"
+                            android:textColor="#ff0000" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -167,11 +176,20 @@
                         android:background="@drawable/yes_no_bg"
                         android:gravity="center" >
 
-                        <ImageView
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NO"
+                            android:textColor="#ff0000" />
+
+                        <!--
+                             <ImageView
                             android:id="@+id/imageView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/text_no" />
+                        -->
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

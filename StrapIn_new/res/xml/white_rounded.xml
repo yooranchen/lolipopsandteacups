@@ -1,11 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<shape xmlns:android="http://schemas.android.com/apk/res/android"> 
-	 <gradient
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <gradient
         android:angle="90"
         android:centerColor="#8f0000"
         android:endColor="#b90000"
         android:startColor="#8f0000"
-        android:type="linear" />   
-	<stroke android:width="1px" android:color="#ffffff"/>
-    <corners android:bottomRightRadius="2px" android:bottomLeftRadius="2px" android:topLeftRadius="2px" android:topRightRadius="2px"/> 
+        android:type="linear" />
+
+    <stroke
+        android:width="3px"
+        android:color="#f2f2f2" />
+
+    <corners
+        android:bottomLeftRadius="2px"
+        android:bottomRightRadius="2px"
+        android:topLeftRadius="2px"
+        android:topRightRadius="2px" />
+
 </shape>

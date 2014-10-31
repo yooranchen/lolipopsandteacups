@@ -19,6 +19,7 @@ public class UserInfo {
 	public boolean session = false;
 	public boolean isZoom = false;
 	public String dob = null;
+	public boolean isFriendWebCall = false;
 	
 	public UserInfo(BaseActivity base) {
 		sharedPreferences = base.getSharedPreferences(PrefCons.GLOBAL_SETTINGS.getPrefName(), Context.MODE_PRIVATE);
@@ -32,6 +33,7 @@ public class UserInfo {
 		session = sharedPreferences.getBoolean(PrefCons.SESSION.getPrefName(), session);
 		isZoom = sharedPreferences.getBoolean(PrefCons.ZOOM.getPrefName(), isZoom);
 		dob = sharedPreferences.getString(PrefCons.DOB.getPrefName(), dob);
+		isFriendWebCall = sharedPreferences.getBoolean(PrefCons.FRIENDWEB.getPrefName(), isFriendWebCall);
 	}
 	public void setUser(String first_name, String last_name, String userId, String profile_image,String dob){
 		this.first_name = first_name;
@@ -80,6 +82,13 @@ public class UserInfo {
 		skiId = ski_Id;
 		Editor edit = sharedPreferences.edit();
 		edit.putString(PrefCons.SKIID.getPrefName(), skiId);
+		edit.commit();
+	}
+	
+	public void setFriendWeb(boolean flg){
+		isFriendWebCall = flg;
+		Editor edit = sharedPreferences.edit();
+		edit.putBoolean(PrefCons.FRIENDWEB.getPrefName(), isFriendWebCall);
 		edit.commit();
 	}
 	

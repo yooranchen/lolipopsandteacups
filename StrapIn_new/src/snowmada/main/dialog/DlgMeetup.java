@@ -55,8 +55,10 @@ public class DlgMeetup extends Dialog implements android.view.View.OnClickListen
 		setContentView(R.layout.meetup_info_dialog);
 		btn_submit = (Button) findViewById(R.id.btn_submit);
 		btn_cancel = (Button) findViewById(R.id.btn_cancel);
-		btn_submit.setText(base.getCustomText("SUB","MIT"));
-		btn_cancel.setText(base.getCustomText("CAN", "CEL"));
+		btn_submit.setTypeface(base.setFont());
+		btn_cancel.setTypeface(base.setFont());
+		//btn_submit.setText(base.getCustomText("SUB","MIT"));
+		//btn_cancel.setText(base.getCustomText("CAN", "CEL"));
 		iv_date_picker_icon = (ImageView)findViewById(R.id.iv_date_picker_icon);
 		iv_time_picker_icon = (ImageView) findViewById(R.id.iv_time_picker_icon);
 		tv_time = (TextView) findViewById(R.id.tv_time);

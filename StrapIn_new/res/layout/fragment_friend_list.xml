@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@drawable/tab_bg"
+        android:background="#2c2c2d"
+        android:padding="4dp"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -24,16 +25,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center|right"
+                android:layout_marginRight="2dp"
                 android:orientation="vertical" >
 
                 <Button
                     android:id="@+id/btn_add_friend"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/tab_select"
+                    android:background="@drawable/red_button_with_white_border"
                     android:gravity="center"
                     android:text="Add Friend"
-                    android:textColor="#00ccff"
+                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -43,13 +45,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:layout_marginLeft="2dp"
                 android:orientation="vertical" >
 
                 <Button
                     android:id="@+id/btn_invite_friend"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/tab_unselect"
+                    android:background="@drawable/red_button_with_white_border"
                     android:gravity="center"
                     android:text="Sent"
                     android:textColor="@color/white"
@@ -63,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:orientation="horizontal" >
 
@@ -71,13 +75,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center|right"
+                android:layout_marginRight="2dp"
                 android:orientation="vertical" >
 
                 <Button
                     android:id="@+id/btn_contactlist"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/tab_select"
+                    android:background="@drawable/red_button_with_white_border"
                     android:gravity="center"
                     android:text="Contacts"
                     android:textColor="@color/white"
@@ -96,7 +101,8 @@
                     android:id="@+id/tab_request"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:background="@drawable/tab_unselect"
+                    android:background="@drawable/red_button_with_white_border"
+                    android:layout_marginLeft="2dp"
                     android:gravity="center" >
 
                     <Button

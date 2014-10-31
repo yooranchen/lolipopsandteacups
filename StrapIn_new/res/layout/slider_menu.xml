@@ -36,7 +36,7 @@
             android:layout_marginLeft="10dp"
             android:duplicateParentState="true"
             android:text="LOCATION"
-            android:textColor="#2cb7ff"
+            android:textColor="#ff0000"
             android:textSize="13sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -171,7 +171,7 @@
             android:layout_marginLeft="10dp"
             android:duplicateParentState="true"
             android:text="FRIENDS"
-            android:textColor="#2cb7ff"
+           android:textColor="#ff0000"
             android:textSize="13sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -214,7 +214,7 @@
             android:layout_marginLeft="10dp"
             android:duplicateParentState="true"
             android:text="FRIENDS"
-            android:textColor="#2cb7ff"
+           android:textColor="#ff0000"
             android:textSize="13sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -275,7 +275,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:gravity="center"
+        android:gravity="center|top"
+        android:paddingTop="30dp"
         android:orientation="vertical" >
 
         <ImageView

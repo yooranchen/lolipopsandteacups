@@ -25,9 +25,9 @@
 
             <ImageView
                 android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/emergency_logo" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/app_logo" />
         </LinearLayout>
 
         <LinearLayout
@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/white"
+                android:text="ALERT DIALOG"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
@@ -79,7 +80,8 @@
             android:id="@+id/iv_dlg_ok"
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
+            android:text="OK"
+            android:textColor="#ffffff"
             android:background="@xml/white_rounded"
             android:gravity="center" />
     </LinearLayout>

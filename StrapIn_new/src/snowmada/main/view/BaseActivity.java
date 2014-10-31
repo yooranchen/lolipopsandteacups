@@ -48,7 +48,7 @@ public class BaseActivity extends FragmentActivity implements OnClickListener, O
 	}
 
 	public Spanned getCustomText(String s1, String s2) {
-		return Html.fromHtml("<font color=\"#ffffff\">" + s1 + "</font>&nbsp;&nbsp;<font color=\"#28b6ff\">" + s2 + "</font>");
+		return Html.fromHtml("<font color=\"#ffffff\">" + s1 + "</font>&nbsp;&nbsp;<font color=\"#ff0000\">" + s2 + "</font>");
 	}
 
 	public void onClick(View v) {

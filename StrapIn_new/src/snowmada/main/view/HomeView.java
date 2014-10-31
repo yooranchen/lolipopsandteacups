@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,13 +39,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
+import android.graphics.Shader.TileMode;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,7 +52,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -69,7 +68,6 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -125,6 +123,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	private RadioGroup rgViews;
 	private Bitmap ic_bitmap = null;
 	Bitmap bhalfsize;
+	private boolean isZoomWhenTracking = false;
 
 	/*
 	 * private Button btn_text; boolean flag = false;
@@ -133,6 +132,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		application.getUserinfo().setFriendWeb(false);
 		getViewbyId();
 		if (application.getUserinfo().ski_launch) {
 			handler2.sendEmptyMessageDelayed(1, 2000);
@@ -256,7 +256,11 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			@Override
 			public void onOpened() {
 				if (isNetworkConnected()) {
-					new FriendListAsynctask().execute();
+					if(application.getUserinfo().isFriendWebCall){
+						application.getUserinfo().setFriendWeb(false);
+						new FriendListAsynctask().execute();
+					}
+					
 				}
 
 			}
@@ -401,6 +405,8 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			showMsg("Already One Tracking Open");
 			return;
 		}
+		isZoomWhenTracking = true;
+		progressBar.setVisibility(View.VISIBLE);
 		isSliderToggle = false;
 		displayView(3);
 
@@ -411,6 +417,9 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 				isTackingOpen = true;
 				break;
 			}
+			
+			
+			
 		}
 		doTrack(id, friendArr.get(pos).getFirstName() + " " + friendArr.get(pos).getLastName());
 	}
@@ -420,6 +429,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			public void run() {
 				handler.postDelayed(runnable, TIME_SPAN);
 				if (counter > (int) (TRACK_INTERVAL / TIME_SPAN)) {
+					ic_bitmap = null;
 					counter = 0;
 					isTackingOpen = false;
 
@@ -455,7 +465,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 
 							updateMap(Double.valueOf(json.getString("lat")), Double.valueOf(json.getString("lng")), name, ic_bitmap);
 						} else {
-							ic_bitmap = getBitmapFromURL("https://graph.facebook.com/" + trackuserId + "/picture");
+							ic_bitmap = getBitmapFromURL("https://graph.facebook.com/" + trackuserId + "/picture?type=large");
 							updateMap(Double.valueOf(json.getString("lat")), Double.valueOf(json.getString("lng")), name, ic_bitmap);
 						}
 
@@ -480,9 +490,15 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 					marker.remove();
 				}
 				/* bhalfsize=Bitmap.createScaledBitmap(b, b.getWidth()*4,b.getHeight()*4, false);*/
+				progressBar.setVisibility(View.GONE);
 				marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title("Name:" + name).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).icon(BitmapDescriptorFactory.fromBitmap(b)));
 				marker.showInfoWindow();
-				map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 16));
+				if(isZoomWhenTracking){
+					isZoomWhenTracking = false;
+					map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 16));
+				}
+				
+				
 			}
 		});
 	}
@@ -510,7 +526,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 
 	public void onMapLongClick(final LatLng arg0) {
 		if (isLongTouchEnableOnMap) {
-			Toast.makeText(getApplicationContext(), "Test", 4000).show();
+			//Toast.makeText(getApplicationContext(), "Test", 4000).show();
 			AlertDialog.Builder builder = new AlertDialog.Builder(HomeView.this);
 			builder.setCancelable(true);
 			builder.setTitle("Craete meet up location?");
@@ -619,7 +635,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 
 							public void run() {
 								try {
-									imageLoader.DisplayImage("https://graph.facebook.com/" + application.getUserinfo().userId + "/picture", iv_profile_pic);
+									imageLoader.DisplayImage("https://graph.facebook.com/" + application.getUserinfo().userId + "/picture?type=large", iv_profile_pic);
 									tv_user_name.setText(response.getString("first_name") + " " + response.getString("last_name"));
 								} catch (JSONException e) {
 									e.printStackTrace();
@@ -907,9 +923,9 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	public  Bitmap getBitmapFromURL(String src) {
 		try {
 			InputStream in = new java.net.URL(src).openStream();
-			Bitmap bi =  getCircularBitmap(BitmapFactory.decodeStream(in));
-			
-			 bhalfsize=Bitmap.createScaledBitmap(bi, bi.getWidth()*4,bi.getHeight()*4, false);
+			//Bitmap bi =  getCircularBitmap(BitmapFactory.decodeStream(in));
+			Bitmap bi = getCircularBitmapWithWhiteBorder(BitmapFactory.decodeStream(in),5);
+			 bhalfsize=Bitmap.createScaledBitmap(bi,(int) (bi.getWidth()/1.40),(int)(bi.getHeight()/1.40), false);
 			 return bhalfsize;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -917,36 +933,31 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		}
 	}
 	
-	public static Bitmap getCircularBitmap(Bitmap bitmap) {
-	    Bitmap output;
-
-	    if (bitmap.getWidth() > bitmap.getHeight()) {
-	        output = Bitmap.createBitmap(bitmap.getHeight(), bitmap.getHeight(), Config.ARGB_8888);
-	    } else {
-	        output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getWidth(), Config.ARGB_8888);
+	
+	public static Bitmap getCircularBitmapWithWhiteBorder(Bitmap bitmap,
+	        int borderWidth) {
+	    if (bitmap == null || bitmap.isRecycled()) {
+	        return null;
 	    }
 
-	    Canvas canvas = new Canvas(output);
+	    final int width = bitmap.getWidth() + borderWidth;
+	    final int height = bitmap.getHeight() + borderWidth;
 
-	    final int color = 0xff424242;
-	    final Paint paint = new Paint();
-	    final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-
-	    float r = 0;
-
-	    if (bitmap.getWidth() > bitmap.getHeight()) {
-	        r = bitmap.getHeight() / 2;
-	    } else {
-	        r = bitmap.getWidth() / 2;
-	    }
-
+	    Bitmap canvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+	    BitmapShader shader = new BitmapShader(bitmap, TileMode.CLAMP, TileMode.CLAMP);
+	    Paint paint = new Paint();
 	    paint.setAntiAlias(true);
-	    canvas.drawARGB(0, 0, 0, 0);
-	    paint.setColor(color);
-	    canvas.drawCircle(r, r, r, paint);
-	    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-	    canvas.drawBitmap(bitmap, rect, rect, paint);
-	    return output;
+	    paint.setShader(shader);
+
+	    Canvas canvas = new Canvas(canvasBitmap);
+	    float radius = width > height ? ((float) height) / 2f : ((float) width) / 2f;
+	    canvas.drawCircle(width / 2, height / 2, radius, paint);
+	    paint.setShader(null);
+	    paint.setStyle(Paint.Style.STROKE);
+	    paint.setColor(Color.WHITE);
+	    paint.setStrokeWidth(borderWidth);
+	    canvas.drawCircle(width / 2, height / 2, radius - borderWidth / 2, paint);
+	    return canvasBitmap;
 	}
 
 	public void OnEmergencyConformDlg() {
@@ -987,9 +998,9 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 				dialog1.setContentView(R.layout.skipetrol_btn_press_dialog);
 				dialog1.setCancelable(false);
 				Button ok = (Button) dialog1.findViewById(R.id.iv_dlg_ok);
-				ok.setText(Html.fromHtml("<font color=\"#ffffff\">O</font><font color=\"#28b6ff\">K</font>"));
+				ok.setTypeface(setFont());
 				TextView tv_dialog = (TextView) dialog1.findViewById(R.id.tv_alert_dialog_text);
-				tv_dialog.setText(Html.fromHtml("<font color=\"#ffffff\">ALERT</font>&nbsp;&nbsp;<font color=\"#28b6ff\">DIALOG</font>"));
+				tv_dialog.setTypeface(setFont());
 
 				ok.setOnClickListener(new OnClickListener() {
 

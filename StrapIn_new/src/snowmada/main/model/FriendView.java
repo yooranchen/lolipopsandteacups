@@ -51,7 +51,7 @@ public class FriendView implements OnClickListener{
 		cb_istrack = (CheckBox)mView.findViewById(R.id.cb_istrack);
 		ll_main = (LinearLayout) mView.findViewById(R.id.ll_main);
 		cb_istrack.setChecked(track);
-		base.imageLoader.DisplayImage("https://graph.facebook.com/" + id + "/picture", iv_user_image);
+		base.imageLoader.DisplayImage("https://graph.facebook.com/" + id + "/picture?type=large", iv_user_image);
 		
 		tv_name.setText(fname+" "+lname);
 		tv_online_status.setText(online?"Online":"Offline");

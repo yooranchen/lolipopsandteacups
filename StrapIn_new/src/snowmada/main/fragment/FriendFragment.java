@@ -115,16 +115,16 @@ public class FriendFragment extends Fragment implements OnClickListener, onFrien
 	}
 
 	public void selectButton(int postion) {
-		btn_add_friend.setBackgroundResource(postion == 1 ? R.drawable.tab_select : R.drawable.tab_unselect);
+		/*btn_add_friend.setBackgroundResource(postion == 1 ? R.drawable.tab_select : R.drawable.tab_unselect);
 		btn_invite_friend.setBackgroundResource(postion == 2 ? R.drawable.tab_select : R.drawable.tab_unselect);
 		btn_request.setBackgroundResource(postion == 3 ? R.drawable.tab_select : R.drawable.tab_unselect);
 		btn_contactlist.setBackgroundResource(postion == 4 ? R.drawable.tab_select : R.drawable.tab_unselect);
-
-		btn_add_friend.setTextColor(postion == 1 ? Color.parseColor("#00ccff") : Color.parseColor("#ffffff"));
+*/
+		/*btn_add_friend.setTextColor(postion == 1 ? Color.parseColor("#00ccff") : Color.parseColor("#ffffff"));
 		btn_invite_friend.setTextColor(postion == 2 ? Color.parseColor("#00ccff") : Color.parseColor("#ffffff"));
 		btn_request.setTextColor(postion == 3 ? Color.parseColor("#00ccff") : Color.parseColor("#ffffff"));
 		btn_contactlist.setTextColor(postion == 4 ? Color.parseColor("#00ccff") : Color.parseColor("#ffffff"));
-
+*/
 		listView1.setVisibility(postion == 1 ? View.VISIBLE : View.GONE);
 		ll_list.setVisibility(postion != 1 ? View.VISIBLE : View.GONE);
 		sc_list.setVisibility(postion != 1 ? View.VISIBLE : View.GONE);

@@ -30,7 +30,7 @@
                 android:layout_height="60dp"
                 android:src="@drawable/app_logo"
                 app:border_color="#ffffff"
-                app:border_width="1dp" />
+                app:border_width="2dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Online"
-                    android:textColor="#2cb7ff"
+                    android:textColor="#0be423"
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -83,16 +83,21 @@
             android:gravity="center"
             android:orientation="vertical" >
 
-            <!-- <ImageView
+            <!--
+                 <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/massage_box" /> -->
+                android:src="@drawable/massage_box" />
+            -->
 
-            <!-- <Button
+
+            <!--
+                 <Button
                 android:id="@+id/button1_test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" /> -->
+                android:text="Button" />
+            -->
 
         </LinearLayout>
 
@@ -106,8 +111,8 @@
 
             <ImageView
                 android:id="@+id/iv_ski_patrol"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/ic_ski_patrol" />
         </LinearLayout>
     </LinearLayout>
@@ -119,7 +124,7 @@
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/footer_bg" >
+        android:background="@drawable/footer_bg_new" >
 
         <ImageView
             android:id="@+id/iv_slider_left"
@@ -128,7 +133,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/icon_friend_list" />
+            android:src="@drawable/ic_left_menu" />
 
         <ImageView
             android:id="@+id/iv_slider_right"
@@ -137,10 +142,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:src="@drawable/icon_menu" />
+            android:src="@drawable/ic_right_menu" />
     </RelativeLayout>
 
-    <!-- <RelativeLayout
+    <!--
+    <RelativeLayout
         android:id="@+id/ll_talk_icon"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
@@ -156,7 +162,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/icon_talk" />
-    </RelativeLayout> -->
+    </RelativeLayout>
+    -->
+
 
     <!-- Footer end -->
     <!-- Body Start -->
@@ -211,34 +219,34 @@
                 android:id="@+id/progressBar1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true" 
-                android:visibility="invisible"/>
-            
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+
             <RadioGroup
-        android:id="@+id/rg_views"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
- 
-        <RadioButton
-            android:id="@+id/rb_normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_rb_normal"
-            android:checked="true" />
- 
-        <RadioButton
-            android:id="@+id/rb_satellite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_rb_satellite" />
-        <RadioButton
-            android:id="@+id/rb_terrain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_rb_terrain" />
- 
-    </RadioGroup>
+                android:id="@+id/rg_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/str_rb_normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_satellite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_rb_satellite" />
+
+                <RadioButton
+                    android:id="@+id/rb_terrain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_rb_terrain" />
+            </RadioGroup>
         </RelativeLayout>
     </LinearLayout>
     <!-- Body End -->

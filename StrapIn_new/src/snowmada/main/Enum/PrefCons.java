@@ -12,7 +12,8 @@ public enum PrefCons {
 	DOB("DOB"),
 	SKILAUNCH("SKYLAUNCH"),
 	SKINAME("SKINAME"),
-	SKIID("SKIID");
+	SKIID("SKIID"),
+	FRIENDWEB("FRIENDWEB");
 
 	public String url;
 

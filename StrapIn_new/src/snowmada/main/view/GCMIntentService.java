@@ -31,7 +31,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	protected void onRegistered(Context context, String registrationId) {
 		app = (MyApplication) getApplication();
-		ServerUtilities.register(context, registrationId,app.getUserinfo().userId);
+		ServerUtilities.register(context, registrationId, app.getUserinfo().userId);
 	}
 
 	protected void onUnregistered(Context context, String registrationId) {
@@ -56,32 +56,28 @@ public class GCMIntentService extends GCMBaseIntentService {
 		return super.onRecoverableError(context, errorId);
 	}
 
-	private static void generateNotification(final Context context,
-			String message) {
+	private static void generateNotification(final Context context, String message) {
 		Log.e(TAG, message);
 
 		try {
 			JSONObject json = new JSONObject(message);
 
 			if (json.getInt("status") == 10) { // Friend request send
-				PendingIntent intent = PendingIntent.getActivity(context,0, new Intent(), 0);
-				showNotification(context, json.getString("message"),intent);
-			}else if(json.getInt("status") == 11){// Friend request accept
-				PendingIntent intent = PendingIntent.getActivity(context,0, new Intent(), 0);
-				showNotification(context, json.getString("message"),intent);
-			}else if(json.getInt("status") == 12){ // Track Notification
-				Intent  notiintent = new Intent(context, TempActivity.class);
+				PendingIntent intent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+				showNotification(context, json.getString("message"), intent);
+			} else if (json.getInt("status") == 11) {// Friend request accept
+				app.getUserinfo().setFriendWeb(true);
+				PendingIntent intent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+				showNotification(context, json.getString("message"), intent);
+			} else if (json.getInt("status") == 12) { // Track Notification
+				Intent notiintent = new Intent(context, TempActivity.class);
 				notiintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				notiintent.putExtra("value", true);
 				context.startActivity(notiintent);
-				PendingIntent intent = PendingIntent.getActivity(context,0, new Intent(), 0);
-				showNotification(context, json.getString("message"),intent);
-			//	TrackLocation.createInstance(context);
-				
-				
-				
-				
-				
+				PendingIntent intent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+				showNotification(context, json.getString("message"), intent);
+				// TrackLocation.createInstance(context);
+
 				lastUsed = System.currentTimeMillis();
 				idle = 0;
 				runnable = new Runnable() {
@@ -89,38 +85,36 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 						handler.postDelayed(runnable, 100);
 						idle = System.currentTimeMillis() - lastUsed;
-						//Log.i("idle", "" + idle);
-						if (idle >= 2*60*1000) {
-							Intent  notiintent1 = new Intent(context, TempActivity.class);
+						// Log.i("idle", "" + idle);
+						if (idle >= 2 * 60 * 1000) {
+							Intent notiintent1 = new Intent(context, TempActivity.class);
 							notiintent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 							notiintent1.putExtra("value", false);
 							context.startActivity(notiintent1);
 							handler.removeCallbacks(runnable);
-							
+
 						}
 					}
 				};
 				handler.postDelayed(runnable, 1000);
-				
-				
-				
-			}else if(json.getInt("status") == 13){ // Ski patrol alert
-				
+
+			} else if (json.getInt("status") == 13) { // Ski patrol alert
+
 				String info[] = json.getString("message").split("-");
-				String name  = info[0];
-				String ski_patroler_id  = info[1];
+				String name = info[0];
+				String ski_patroler_id = info[1];
 				app.getUserinfo().setSKiLaunch(true);
 				app.getUserinfo().setSkiName(name);
 				app.getUserinfo().setSkiId(ski_patroler_id);
-				Intent intent = new Intent(	"SNOMADA_SKI_PATROL_ALERT_DIALOG");
+				Intent intent = new Intent("SNOMADA_SKI_PATROL_ALERT_DIALOG");
 				context.sendBroadcast(intent);
-				
-				//showNotification(context, json.getString("message"),intent);
-			}else if(json.getInt("status") == 14){ // Meet UP
-				PendingIntent intent = PendingIntent.getActivity(context,0, new Intent(), 0);
-				showNotification(context, json.getString("message"),intent);
-				
-				//showNotification(context, json.getString("message"),intent);
+
+				// showNotification(context, json.getString("message"),intent);
+			} else if (json.getInt("status") == 14) { // Meet UP
+				PendingIntent intent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+				showNotification(context, json.getString("message"), intent);
+
+				// showNotification(context, json.getString("message"),intent);
 			}
 
 		} catch (JSONException e) {
@@ -128,18 +122,18 @@ public class GCMIntentService extends GCMBaseIntentService {
 		}
 
 	}
-	
-	 public static void showNotification(Context context,String noti_msg,PendingIntent intent){    	
-	    	int icon = R.drawable.app_logo;
-			long when = System.currentTimeMillis();
-			String title = context.getString(R.string.app_name);
-			Notification notification = new Notification(icon,noti_msg, when);
-			NotificationManager notificationManager = (NotificationManager) context	.getSystemService(Context.NOTIFICATION_SERVICE);
-			notification.setLatestEventInfo(context, title, noti_msg,intent);
-			notification.flags |= Notification.FLAG_AUTO_CANCEL;
-			notification.defaults |= Notification.DEFAULT_SOUND;
-			notification.defaults |= Notification.DEFAULT_VIBRATE;
-			notificationManager.notify(0, notification);
-	    }
+
+	public static void showNotification(Context context, String noti_msg, PendingIntent intent) {
+		int icon = R.drawable.app_logo_small;
+		long when = System.currentTimeMillis();
+		String title = context.getString(R.string.app_name);
+		Notification notification = new Notification(icon, noti_msg, when);
+		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		notification.setLatestEventInfo(context, title, noti_msg, intent);
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		notification.defaults |= Notification.DEFAULT_SOUND;
+		notification.defaults |= Notification.DEFAULT_VIBRATE;
+		notificationManager.notify(0, notification);
+	}
 
 }

@@ -95,6 +95,7 @@ public class FriendRequestView implements OnClickListener{
 		protected void onPostExecute(Boolean result) {							
 			base.dismissProgressBar();		
 				if(result){
+					base.application.getUserinfo().setFriendWeb(true);
 					//Toast.makeText(base, "hello", 1000).show();
 					mView.setVisibility(View.GONE);
 					//list.reloadList(pos);
