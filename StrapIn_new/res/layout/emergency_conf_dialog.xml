@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
     android:background="@xml/dlg_black_bg"
@@ -22,11 +23,13 @@
             android:layout_height="wrap_content"
             android:gravity="center" >
 
-            <ImageView
+            <snowmada.main.view.CircleImageView
                 android:id="@+id/imageView1"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/ic_logo_new" />
+                android:src="@drawable/app_logo"
+                app:border_color="#ffffff"
+                 />
         </LinearLayout>
     </LinearLayout>
 
@@ -56,13 +59,14 @@
             android:background="@xml/white_rounded"
             android:text="OK"
             android:textColor="#ffffff"
+            android:layout_marginRight="12dp"
             android:gravity="center" />
 
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="12dp"
             android:background="@xml/white_rounded"
              android:text="CANCEL"
             android:textColor="#ffffff"

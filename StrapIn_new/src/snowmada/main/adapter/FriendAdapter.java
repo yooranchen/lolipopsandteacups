@@ -15,6 +15,7 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -100,9 +101,9 @@ public class FriendAdapter extends ArrayAdapter<String> {
 					ImageView iv_img = (ImageView) dialog.findViewById(R.id.iv_req_friend_img);
 					final CheckBox isTrack = (CheckBox) dialog.findViewById(R.id.check_track);
 					Button yes = (Button) dialog.findViewById(R.id.btn_yes);
-					yes.setText(Html.fromHtml("<font color=\"#ffffff\">YE</font><font color=\"#28b6ff\">S</font>"));
+					yes.setTypeface(activity.setFont());
 					Button no = (Button) dialog.findViewById(R.id.btn_no);
-					no.setText(Html.fromHtml("<font color=\"#ffffff\">N</font><font color=\"#28b6ff\">O</font>"));
+					no.setTypeface(activity.setFont());
 
 					tv_name.setText(st[0] + " " + st[1]);
 					isTrack.setChecked(true);
@@ -118,7 +119,7 @@ public class FriendAdapter extends ArrayAdapter<String> {
 							} else {
 								status = 0;
 							}
-							new AddSnowmadaFriend().execute(st[0]);
+							new AddSnowmadaFriend().execute(st[2]);
 							dialog.dismiss();
 						}
 					});
@@ -163,6 +164,7 @@ public class FriendAdapter extends ArrayAdapter<String> {
 				request.put("first_name", activity.application.getUserinfo().first_name);
 				request.put("last_name", activity.application.getUserinfo().last_name);
 				JSONObject response = HttpClient.SendHttpPost(UrlCons.REQUEST_FRIEND.getUrl(), request);
+				Log.e("DDDDDD", request.toString());
 
 				if (response != null) {
 					flg = response.getBoolean("status");

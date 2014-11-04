@@ -62,6 +62,7 @@ public class DlgFriend extends Dialog implements android.view.View.OnClickListen
 	*/btn_track.setTypeface(base.setFont());
 	btn_delete.setTypeface(base.setFont());
 	base.imageLoader.DisplayImage("https://graph.facebook.com/" + id + "/picture", iv_image);
+	base.imageLoader.DisplayImage("https://graph.facebook.com/" + id + "/picture", iv_image);// Dont delete the second line.
 	tv_online_status.setText(online?"Online":"Offline");
 	tv_online_status.setTextColor(online?Color.parseColor("#0be423"):Color.parseColor("#FF0000"));
 	tv_name.setText(name);

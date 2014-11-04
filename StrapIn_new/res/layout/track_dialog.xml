@@ -74,14 +74,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="left"
+                    android:gravity="center"
                     android:orientation="vertical" >
 
                     <Button
                         android:id="@+id/btn_track"
                         android:layout_width="80dp"
                         android:layout_height="28dp"
-                        android:layout_marginRight="2dp"
                         android:background="@xml/white_rounded"
                         android:text="TRACK"
                         android:textColor="#ffffff" />

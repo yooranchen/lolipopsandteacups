@@ -68,6 +68,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -124,6 +125,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	private Bitmap ic_bitmap = null;
 	Bitmap bhalfsize;
 	private boolean isZoomWhenTracking = false;
+	private double ski_lat, ski_lng;
 
 	/*
 	 * private Button btn_text; boolean flag = false;
@@ -248,7 +250,29 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		map.setOnMapLongClickListener(this);
 		iv_profile_pic.setOnClickListener(this);
 		displayView(3);
-		TrackLocation.createInstance(this);
+		
+		
+		
+		
+		Bundle bundle  = getIntent().getExtras();
+		if(bundle !=null){
+			
+			if(bundle.getBoolean("ski")){
+				application.getUserinfo().setZoom(false);
+				//
+				ski_lat = Double.parseDouble(bundle.getString("lat"));
+				ski_lng = Double.parseDouble(bundle.getString("lng"));
+				//Toast.makeText(getApplicationContext(), "Here"+ ski_lat+"   "+ski_lng, 1000).show();
+				map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(ski_lat, ski_lng), 16));
+				
+			}
+			
+		}else{
+			TrackLocation.createInstance(this);
+		}
+		
+		
+		
 
 		iv_ski_patrol.setOnClickListener(this);
 		slidingmenu.setOnOpenedListener(new OnOpenedListener() {
@@ -313,7 +337,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			break;
 		case R.id.iv_profile_pic:
 			isSliderToggle = false;
-			displayView(5);
+			//displayView(5);
 			break;
 		case R.id.iv_ski_patrol:
 			new DlgSkiPatrolConfirmation(this, this).show();

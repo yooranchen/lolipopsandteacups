@@ -111,7 +111,12 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 				// showNotification(context, json.getString("message"),intent);
 			} else if (json.getInt("status") == 14) { // Meet UP
-				PendingIntent intent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+				Intent inte = new Intent(context, HomeView.class);
+				inte.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |   Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				inte.putExtra("ski", true);
+				inte.putExtra("lat", json.getString("lat"));
+				inte.putExtra("lng", json.getString("lng"));
+				PendingIntent intent = PendingIntent.getActivity(context, 0, inte, 0);
 				showNotification(context, json.getString("message"), intent);
 
 				// showNotification(context, json.getString("message"),intent);
