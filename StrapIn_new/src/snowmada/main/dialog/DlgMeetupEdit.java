@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 
 import snowmada.main.model.OnMeetupSubmitListener;
 import snowmada.main.view.BaseActivity;
@@ -21,35 +22,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DlgMeetup extends Dialog implements android.view.View.OnClickListener{
-	
-	
+public class DlgMeetupEdit extends Dialog implements android.view.View.OnClickListener {
 
 	private BaseActivity base;
 	private LatLng latlng;
 	private Button btn_submit;
 	private Button btn_cancel;
-	private ImageView iv_date_picker_icon,iv_time_picker_icon;
-	public TextView tv_time,tv_date,tv_name;
+	private ImageView iv_date_picker_icon, iv_time_picker_icon;
+	public TextView tv_time, tv_date, tv_name;
 	private EditText et_location, et_description;
 	public static final int TIME_DIALOG_ID = 999;
-    public static final int DATE_DIALOG_ID = 998;
-    private long current_time_in_millisecond;
-    public OnMeetupSubmitListener listener;
-	
-	public DlgMeetup(BaseActivity b, LatLng latlng) {
+	public static final int DATE_DIALOG_ID = 998;
+	public OnMeetupSubmitListener listener;
+	public String current_selected_marker_id, name, location, desc, date1, time1;
+	public Marker marker;
+
+	public DlgMeetupEdit(BaseActivity b, Marker marker ,String current_selected_marker_id, String name, String location, String desc, String date1, String time1) {
 		super(b);
 		base = b;
 		listener = (OnMeetupSubmitListener) base;
-		this.latlng = latlng;
-		
+		this.current_selected_marker_id = current_selected_marker_id;
+		this.name = name;
+		this.location = location;
+		this.desc = desc;
+		this.date1 = date1;
+		this.time1 = time1;
+		this.marker = marker;
+
 	}
-	
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
-		current_time_in_millisecond = System.currentTimeMillis();		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 		setContentView(R.layout.meetup_info_dialog);
@@ -57,29 +61,30 @@ public class DlgMeetup extends Dialog implements android.view.View.OnClickListen
 		btn_cancel = (Button) findViewById(R.id.btn_cancel);
 		btn_submit.setTypeface(base.setFont());
 		btn_cancel.setTypeface(base.setFont());
-		//btn_submit.setText(base.getCustomText("SUB","MIT"));
-		//btn_cancel.setText(base.getCustomText("CAN", "CEL"));
-		iv_date_picker_icon = (ImageView)findViewById(R.id.iv_date_picker_icon);
+		// btn_submit.setText(base.getCustomText("SUB","MIT"));
+		// btn_cancel.setText(base.getCustomText("CAN", "CEL"));
+		iv_date_picker_icon = (ImageView) findViewById(R.id.iv_date_picker_icon);
 		iv_time_picker_icon = (ImageView) findViewById(R.id.iv_time_picker_icon);
 		tv_time = (TextView) findViewById(R.id.tv_time);
 		tv_date = (TextView) findViewById(R.id.tv_date);
-	
-		tv_name = (TextView) findViewById(R.id.tv_name);
-		tv_name.setText(base.application.getUserinfo().first_name + " "+ base.application.getUserinfo().last_name);
-		et_location = (EditText) findViewById(R.id.et_location);
+		tv_time.setText(time1);
+		tv_date.setText(date1);
 
-		et_description = (EditText)findViewById(R.id.et_description);
+		tv_name = (TextView) findViewById(R.id.tv_name);
+		tv_name.setText(name);
+		tv_name.setText(base.application.getUserinfo().first_name + " " + base.application.getUserinfo().last_name);
+		et_location = (EditText) findViewById(R.id.et_location);
+		et_location.setText(location);
+
+		et_description = (EditText) findViewById(R.id.et_description);
+		et_description.setText(desc);
 		btn_submit.setOnClickListener(this);
 		btn_cancel.setOnClickListener(this);
 		iv_date_picker_icon.setOnClickListener(this);
 		iv_time_picker_icon.setOnClickListener(this);
 
-		
-	    
-		
 	}
 
-	
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_submit:
@@ -99,8 +104,8 @@ public class DlgMeetup extends Dialog implements android.view.View.OnClickListen
 		}
 
 	}
-	
-	public void doSubmit(){
+
+	public void doSubmit() {
 		dismiss();
 
 		String _name = tv_name.getText().toString().trim();
@@ -108,9 +113,9 @@ public class DlgMeetup extends Dialog implements android.view.View.OnClickListen
 		String _description = et_description.getText().toString().trim();
 		String _date = tv_date.getText().toString().trim();
 		String _time = tv_time.getText().toString().trim();
-		String _id = ""+current_time_in_millisecond;
-		String _lat = ""+latlng.latitude;
-		String _lng = ""+latlng.longitude;
+		String _id = "" + current_selected_marker_id;
+		String _lat = "" + marker.getPosition().latitude;
+		String _lng = "" + marker.getPosition().longitude;
 		if (_location.length() == 0) {
 			et_location.setError("Please enter Location Name");
 		} else if (_description.length() == 0) {
@@ -121,25 +126,23 @@ public class DlgMeetup extends Dialog implements android.view.View.OnClickListen
 			tv_time.setError("Please enter Time");
 		} else {
 
-		    try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			Date date = new Date();
-			String _currentdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
-			Date currentdate = sdf.parse(_currentdate);
-			Date scheduledate = sdf.parse(_date + " " + _time);
-			if (scheduledate.compareTo(currentdate) < 0) {
-			    Toast.makeText(base,"Plesase insert a valid Date&TIme",   Toast.LENGTH_LONG).show();
-			} else {
-				listener.onMeetUpSubmit(_id, _name, _location, _description, _time, _lat, _lng, _date, "add");
-			  
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				Date date = new Date();
+				String _currentdate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
+				Date currentdate = sdf.parse(_currentdate);
+				Date scheduledate = sdf.parse(_date + " " + _time);
+				if (scheduledate.compareTo(currentdate) < 0) {
+					Toast.makeText(base, "Plesase insert a valid Date&TIme", Toast.LENGTH_LONG).show();
+				} else {
+					listener.onMeetUpSubmit(_id, _name, _location, _description, _time, _lat, _lng, _date, "Edit");
+
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
-		    } catch (ParseException e) {
-			e.printStackTrace();
-		    }
 
 		}
 
-	    }
 	}
-	
-
+}

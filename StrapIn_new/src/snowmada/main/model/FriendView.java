@@ -8,6 +8,7 @@ import snowmada.main.dialog.DlgFriend;
 import snowmada.main.dialog.DlgFriend.OnFriendDialogListener;
 import snowmada.main.network.HttpClient;
 import snowmada.main.view.BaseActivity;
+import snowmada.main.view.HomeView;
 import snowmada.main.view.R;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -36,11 +37,13 @@ public class FriendView implements OnClickListener{
 	public OnFriendDialogListener listener;
 	public boolean online = true;
 	public boolean track;
+	public HomeView home;
 	
-	public FriendView(BaseActivity b,final String id,  String fname, String lname, boolean track){
+	public FriendView(BaseActivity b,HomeView home,final String id,  String fname, String lname, boolean track){
 		
 		base  = b;
-		this.id = id;		
+		this.id = id;	
+		this.home = home;
 		this.track = track;
 		this.fname = fname;
 		this.lname = lname;
@@ -76,7 +79,7 @@ public class FriendView implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.ll_main:
-			new DlgFriend(base,id ,fname+" "+lname, online).show();
+			new DlgFriend(base,home,id ,fname+" "+lname, online).show();
 			break;
 		}	
 	}

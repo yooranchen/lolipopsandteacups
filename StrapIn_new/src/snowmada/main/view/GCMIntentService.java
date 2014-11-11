@@ -1,10 +1,10 @@
 package snowmada.main.view;
 
-import org.json.JSONException;
+import static snowmada.main.view.CommonUtilities.SENDER_ID;
+
 import org.json.JSONObject;
 
 import snowmada.main.application.MyApplication;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,8 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
+
 import com.google.android.gcm.GCMBaseIntentService;
-import static snowmada.main.view.CommonUtilities.SENDER_ID;
 
 public class GCMIntentService extends GCMBaseIntentService {
 
@@ -122,7 +122,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 				// showNotification(context, json.getString("message"),intent);
 			}
 
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

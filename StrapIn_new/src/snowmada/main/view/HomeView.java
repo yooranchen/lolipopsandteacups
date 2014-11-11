@@ -24,9 +24,11 @@ import snowmada.main.bean.MeetUpBean;
 import snowmada.main.constant.Constant;
 import snowmada.main.dialog.DlgFriend.OnFriendDialogListener;
 import snowmada.main.dialog.DlgMeetup;
+import snowmada.main.dialog.DlgMeetupEdit;
 import snowmada.main.fragment.ChatFragment;
 import snowmada.main.fragment.DealFragment;
 import snowmada.main.fragment.FriendFragment;
+import snowmada.main.fragment.ProfileFragment;
 import snowmada.main.model.FriendView;
 import snowmada.main.network.HttpClient;
 import android.app.AlertDialog;
@@ -65,10 +67,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -90,7 +92,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	private ImageView iv_ski_patrol;
 	private boolean UserType_flag = true;
 	private LinearLayout ll_friends;
-	private ProgressBar progressBar, progressrar_friend_list;
+	public ProgressBar progressBar, progressrar_friend_list;
 	private LinearLayout ll_meet_up, ll_chat, ll_deals, ll_track, ll_add_friends, ll_profile;
 	public ArrayList<FriendBean> friendArr = new ArrayList<FriendBean>();
 	public ArrayList<MeetUpBean> meetUpArr = new ArrayList<MeetUpBean>();
@@ -102,7 +104,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	private Handler handler = new Handler();
 	private int counter = 0;
 	private static final int TRACK_INTERVAL = 60000;
-	private static final int TIME_SPAN = 3000;
+	private static final int TIME_SPAN = 1000;
 	public boolean isTackingOpen = false;
 	public boolean isLongTouchEnableOnMap = false;
 	public static final int TIME_DIALOG_ID = 999;
@@ -113,6 +115,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	public int month;
 	public int day;
 	private DlgMeetup dlgmeetup;
+	private DlgMeetupEdit dlgeditmeetup;
 	private boolean isMeetUpCall = true;
 	public String profile_id = null;
 	private AsyncTask<Void, Void, Void> mRegisterTask;
@@ -124,8 +127,9 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	private RadioGroup rgViews;
 	private Bitmap ic_bitmap = null;
 	Bitmap bhalfsize;
-	private boolean isZoomWhenTracking = false;
+    private boolean isZoomWhenTracking = false;
 	private double ski_lat, ski_lng;
+	private boolean zoomonlyonce = false;
 
 	/*
 	 * private Button btn_text; boolean flag = false;
@@ -237,6 +241,8 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		map.getUiSettings().setCompassEnabled(true);
 		map.setInfoWindowAdapter(new CustomInfoWindowAdapter(this));
 		application.setMap(map);
+		map.setOnInfoWindowClickListener(this);
+		map.setOnMarkerClickListener(this);
 
 		ll_friends = (LinearLayout) findViewById(R.id.ll_friends);
 		iv_slider_left.setOnClickListener(this);
@@ -248,11 +254,9 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		ll_add_friends.setOnClickListener(this);
 		ll_profile.setOnClickListener(this);
 		map.setOnMapLongClickListener(this);
+		map.setOnMapClickListener(this);
 		iv_profile_pic.setOnClickListener(this);
-		displayView(3);
-		
-		
-		
+		displayView(3);		
 		
 		Bundle bundle  = getIntent().getExtras();
 		if(bundle !=null){
@@ -333,7 +337,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			displayView(4);
 			break;
 		case R.id.ll_profile:
-			displayView(5);
+			//displayView(5);
 			break;
 		case R.id.iv_profile_pic:
 			isSliderToggle = false;
@@ -364,10 +368,10 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			fragment = new FriendFragment(this);
 			break;
 		case 5:
-			/*
-			 * fragment = new ProfileFragment(this, UserType_flag, profile_id);
-			 * UserType_flag = true;
-			 */
+			
+			 fragment = new ProfileFragment(this, UserType_flag, profile_id);
+			 UserType_flag = true;
+			 
 			break;
 		}
 
@@ -429,7 +433,8 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			showMsg("Already One Tracking Open");
 			return;
 		}
-		isZoomWhenTracking = true;
+		zoomonlyonce = true;
+		//isZoomWhenTracking = true;
 		progressBar.setVisibility(View.VISIBLE);
 		isSliderToggle = false;
 		displayView(3);
@@ -449,6 +454,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	}
 
 	private void doTrack(final String id, final String name) {
+		isZoomWhenTracking  = true;
 		runnable = new Runnable() {
 			public void run() {
 				handler.postDelayed(runnable, TIME_SPAN);
@@ -483,8 +489,8 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 					pushSendOnFirstRequestTrack = false;
 					JSONObject json = HttpClient.SendHttpPost(UrlCons.GET_LOCATION.getUrl(), jsonObject);
 
-					System.out.println("!!! " + json.toString());
-					if (json != null) {
+					//System.out.println("!!! " + json.toString());
+					if (json != null ) {
 						if (ic_bitmap != null) {
 
 							updateMap(Double.valueOf(json.getString("lat")), Double.valueOf(json.getString("lng")), name, ic_bitmap);
@@ -514,13 +520,25 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 					marker.remove();
 				}
 				/* bhalfsize=Bitmap.createScaledBitmap(b, b.getWidth()*4,b.getHeight()*4, false);*/
-				progressBar.setVisibility(View.GONE);
-				marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title("Name:" + name).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).icon(BitmapDescriptorFactory.fromBitmap(b)));
+				
+				marker = map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title("Name-:" + name).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).snippet("Time:" + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()).icon(BitmapDescriptorFactory.fromBitmap(b)));
 				marker.showInfoWindow();
-				if(isZoomWhenTracking){
-					isZoomWhenTracking = false;
-					map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 16));
-				}
+				/*if(isZoomWhenTracking){
+					isZoomWhenTracking = false;*/
+					if(counter >=3){
+						progressBar.setVisibility(View.GONE);
+						if(isZoomWhenTracking){
+							if(zoomonlyonce){
+								zoomonlyonce = false;
+								map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 16));
+							}else{
+								map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat, lng)));
+							}
+						
+						}
+					}
+					
+				//}
 				
 				
 			}
@@ -598,7 +616,8 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		new DeleteFriendAsyncTask().execute(id);
 	}
 
-	public void onMeetUpSubmit(final String id, final String name, final String location, final String description, final String time, final String lat, final String lng, final String meetupdate) {
+	public void onMeetUpSubmit(final String id, final String name, final String location, final String description, final String time, final String lat, final String lng, final String meetupdate, final String action) {
+		
 		Thread t = new Thread() {
 			public void run() {
 				boolean flag = false;
@@ -614,11 +633,12 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 					jsonObject.put("lat", lat);
 					jsonObject.put("lng", lng);
 					jsonObject.put("meet_date", meetupdate);
-					jsonObject.put("actn", "add");
+					jsonObject.put("actn", action);
 					JSONObject json = HttpClient.SendHttpPost(UrlCons.ADD_MEET_UP_LOCATION.getUrl(), jsonObject);
 					if (json != null) {
 						flag = json.getBoolean("status");
 						if (flag) {
+							
 							syncMeetUpLocation(true);
 						}
 					}
@@ -724,7 +744,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 					if (result != null) {
 						application.setFriendArr(result);
 						for (int i = 0; i < result.size(); i++) {
-							ll_friends.addView(new FriendView(HomeView.this, result.get(i).getUserId(), result.get(i).getFirstName(), result.get(i).getLastName(), result.get(i).isTrack()).mView);
+							ll_friends.addView(new FriendView(HomeView.this,HomeView.this, result.get(i).getUserId(), result.get(i).getFirstName(), result.get(i).getLastName(), result.get(i).isTrack()).mView);
 						}
 					}
 
@@ -772,9 +792,10 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 								} else {
 									expireMarkerIds.add("" + _marker_id);
 								}
-								if (meetUpArr != null) {
-									dropMarker(meetUpArr);
-								}
+								
+							}
+							if (meetUpArr != null) {
+								dropMarker(meetUpArr);
 							}
 						}
 
@@ -793,7 +814,11 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 				progressBar.setVisibility(View.GONE);
 				if (result != null) {
 					if (marker != null) {
+						//map.clear();
+						//Toast.makeText(getApplicationContext(), "Remove", 1000).show();
 						marker.remove();
+					}else{
+						//Toast.makeText(getApplicationContext(), "Remove1111", 1000).show();
 					}
 
 					for (int i = 0; i < result.size(); i++) {
@@ -948,6 +973,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		try {
 			InputStream in = new java.net.URL(src).openStream();
 			//Bitmap bi =  getCircularBitmap(BitmapFactory.decodeStream(in));
+			
 			Bitmap bi = getCircularBitmapWithWhiteBorder(BitmapFactory.decodeStream(in),5);
 			 bhalfsize=Bitmap.createScaledBitmap(bi,(int) (bi.getWidth()/1.40),(int)(bi.getHeight()/1.40), false);
 			 return bhalfsize;
@@ -968,6 +994,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	    final int height = bitmap.getHeight() + borderWidth;
 
 	    Bitmap canvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+	    
 	    BitmapShader shader = new BitmapShader(bitmap, TileMode.CLAMP, TileMode.CLAMP);
 	    Paint paint = new Paint();
 	    paint.setAntiAlias(true);
@@ -1106,5 +1133,52 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	   @Override
+	    public void onInfoWindowClick(Marker marker) {
+		
+		String current_selected_marker_id = markerHas.get(marker);
+		if (current_selected_marker_id != null) {
+		    for (int i = 0; i < meetUpArr.size(); i++) {
+			if (current_selected_marker_id.equalsIgnoreCase(meetUpArr
+				.get(i).getId())) {
+			    if (meetUpArr.get(i).getOwner().equalsIgnoreCase("ME")) {
+			    	
+			    	dlgeditmeetup = new DlgMeetupEdit(HomeView.this, marker,
+					current_selected_marker_id, meetUpArr
+						.get(i).getName(), meetUpArr.get(i)
+						.getLocation(), meetUpArr.get(i)
+						.getDescription(), meetUpArr.get(i)
+						.getDate1(), meetUpArr.get(i)
+						.getTime());
+			    	dlgeditmeetup.show();
+				/*setMeetuplocationDialog(marker,
+					current_selected_marker_id, meetUpArr
+						.get(i).getName(), meetUpArr.get(i)
+						.getLocation(), meetUpArr.get(i)
+						.getDescription(), meetUpArr.get(i)
+						.getDate1(), meetUpArr.get(i)
+						.getTime(), meetUpArr.get(i)
+						.getOwner());*/
+			    }
+			    break;
+			}
+		    }
+		   
 
+		}
+
+	    }
+	   
+	   public boolean onMarkerClick(Marker arg0) {
+		   if(arg0.getTitle().contains("Name-:")){
+			   isZoomWhenTracking = true;
+		   }
+			return false;
+		}
+	   @Override
+		public void onMapClick(LatLng arg0) {
+		   isZoomWhenTracking = false;
+			
+		}
 }

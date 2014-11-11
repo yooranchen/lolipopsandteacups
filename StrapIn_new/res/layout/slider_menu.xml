@@ -232,8 +232,9 @@
         android:layout_height="50dp"
         android:background="#1a1c1f"
         android:gravity="center|left"
-        android:orientation="horizontal"
         android:visibility="gone"
+        android:orientation="horizontal"
+       
         android:paddingLeft="10dp" >
 
         <ImageView
@@ -259,7 +260,7 @@
             android:layout_marginLeft="10dp"
             android:duplicateParentState="true"
             android:text="PROFILE"
-            android:textColor="#2cb7ff"
+           android:textColor="#ff0000"
             android:textSize="13sp"
             android:textStyle="bold" />
     </LinearLayout>

@@ -179,12 +179,15 @@ public class FriendFragment extends Fragment implements OnClickListener, onFrien
 
 	public boolean isFriend(String id) {
 		boolean flag = false;
-		for (int j = 0; j < base.application.getFriendArr().size(); j++) {
-			if (id.equalsIgnoreCase(base.application.getFriendArr().get(j).getUserId())) {
-				flag = true;
-				break;
+		if(base.application.getFriendArr()!=null){
+			for (int j = 0; j < base.application.getFriendArr().size(); j++) {
+				if (id.equalsIgnoreCase(base.application.getFriendArr().get(j).getUserId())) {
+					flag = true;
+					break;
+				}
 			}
 		}
+		
 		return flag;
 	}
 

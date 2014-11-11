@@ -124,7 +124,7 @@
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/footer_bg_new" >
+        android:background="@drawable/bottom_backgroundbar" >
 
         <ImageView
             android:id="@+id/iv_slider_left"

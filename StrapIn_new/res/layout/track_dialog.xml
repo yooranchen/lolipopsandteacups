@@ -102,6 +102,46 @@
                         android:textColor="#ffffff" />
                 </LinearLayout>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_view_frofile"
+                        android:layout_width="80dp"
+                        android:layout_height="28dp"
+                        android:background="@xml/white_rounded"
+                        android:text="PROFILE"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/btn_chat"
+                        android:layout_width="80dp"
+                        android:layout_height="28dp"
+                        android:background="@xml/white_rounded"
+                        android:text="CHAT"
+                        android:textColor="#ffffff" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"

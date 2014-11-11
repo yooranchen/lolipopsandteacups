@@ -42,7 +42,8 @@ REQUEST_FRIEND("http://106.187.95.65/snowmada/snowmada/fr_add_friend.php"),
 ACCEPT_FRIEND_REQUEST("http://106.187.95.65/snowmada/snowmada/fr_friend_request_accept.php"),
 PENDING_FRIEND_REQUEST_FROM_ME("http://106.187.95.65/snowmada/snowmada/fr_my_pending_request.php"),
 PENDING_FRIEND_REQUEST_TO_ME("http://106.187.95.65/snowmada/snowmada/fr_view_my_friend_req.php"),
-DELETE_FRIEND("http://106.187.95.65/snowmada/snowmada/fr_delete_friend.php");
+DELETE_FRIEND("http://106.187.95.65/snowmada/snowmada/fr_delete_friend.php"),
+CHECK_TRACK_STATUS("http://106.187.95.65/snowmada/snowmada/fr_track_status.php");
 
 UrlCons(String ob) {
 	this.url = ob;

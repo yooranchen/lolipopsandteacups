@@ -22,7 +22,7 @@
             android:id="@+id/btn_profile_edit"
             android:layout_width="80dp"
             android:layout_height="25dp"
-            android:background="@drawable/button_upload"
+            android:background="@drawable/red_button_with_white_border"
             android:text="Edit"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -391,7 +391,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:text="Gallery"
-                android:textColor="#2cb7ff"
+                android:textColor="#ff0000"
                 android:textStyle="bold" />
 
             <TextView
@@ -410,7 +410,7 @@
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/button_upload"
+                 android:background="@drawable/red_button_with_white_border"
                 android:drawableLeft="@drawable/upload_icon"
                 android:gravity="center|right"
                 android:paddingLeft="15dp"

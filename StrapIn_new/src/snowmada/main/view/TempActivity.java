@@ -11,11 +11,15 @@ public class TempActivity extends BaseActivity{
 		
 		Bundle bundle  = getIntent().getExtras();
 		if(bundle!=null){
+			try{
 			flag = bundle.getBoolean("value");
 			if(flag){
 				TrackLocation.createInstance(TempActivity.this);
 			}else{
 				TrackLocation.createInstance(TempActivity.this).removeLocationUpdate();
+			}
+			}catch (Exception e){
+				e.printStackTrace();
 			}
 			
 			finish();

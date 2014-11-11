@@ -11,8 +11,8 @@ import snowmada.main.application.UserInfo;
 import snowmada.main.bean.CustomDialogInterface;
 import snowmada.main.bean.GoodDeals;
 import snowmada.main.dialog.DlgFriend.OnFriendDialogListener;
-import snowmada.main.dialog.DlgMeetup.OnMeetupSubmitListener;
 import snowmada.main.fragment.DealFragment.setDealsOnMapListener;
+import snowmada.main.model.OnMeetupSubmitListener;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -27,12 +27,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
-public class BaseActivity extends FragmentActivity implements OnClickListener, OnFriendDialogListener, OnMapLongClickListener, OnMeetupSubmitListener, setDealsOnMapListener, CustomDialogInterface {
+public class BaseActivity extends FragmentActivity implements OnClickListener, OnFriendDialogListener, OnMapLongClickListener, OnMeetupSubmitListener, setDealsOnMapListener, CustomDialogInterface , OnInfoWindowClickListener,OnMarkerClickListener, OnMapClickListener{
 	public MyApplication application;
 	public ImageLoader imageLoader;
 	public SlidingMenu slidingmenu;
@@ -144,5 +147,25 @@ public class BaseActivity extends FragmentActivity implements OnClickListener, O
 	}
 
 	public void OnEmergencyConformDlg() {
+	}
+
+	
+	public void onInfoWindowClick(Marker arg0) {	}
+
+	@Override
+	public boolean onMarkerClick(Marker arg0) {
+		return false;
+	}
+
+	@Override
+	public void onMeetUpSubmit(String id, String name, String location, String description, String time, String lat, String lng, String meetupdate, String action) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMapClick(LatLng arg0) {
+		
+		
 	}
 }
