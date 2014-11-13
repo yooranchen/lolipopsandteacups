@@ -29,6 +29,7 @@ import snowmada.main.fragment.ChatFragment;
 import snowmada.main.fragment.DealFragment;
 import snowmada.main.fragment.FriendFragment;
 import snowmada.main.fragment.ProfileFragment;
+import snowmada.main.fragment.WeatherFragment;
 import snowmada.main.model.FriendView;
 import snowmada.main.network.HttpClient;
 import android.app.AlertDialog;
@@ -93,7 +94,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 	private boolean UserType_flag = true;
 	private LinearLayout ll_friends;
 	public ProgressBar progressBar, progressrar_friend_list;
-	private LinearLayout ll_meet_up, ll_chat, ll_deals, ll_track, ll_add_friends, ll_profile;
+	private LinearLayout ll_meet_up, ll_chat, ll_deals, ll_track, ll_add_friends, ll_profile,ll_weather;
 	public ArrayList<FriendBean> friendArr = new ArrayList<FriendBean>();
 	public ArrayList<MeetUpBean> meetUpArr = new ArrayList<MeetUpBean>();
 	public List<String> expireMarkerIds = new ArrayList<String>();
@@ -233,6 +234,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		ll_add_friends = (LinearLayout) findViewById(R.id.ll_add_friends);
 		ll_profile = (LinearLayout) findViewById(R.id.ll_profile);
 		tv_page_title = (TextView) findViewById(R.id.tv_page_title);
+		ll_weather = (LinearLayout)findViewById(R.id.ll_weather);
 
 		iv_ski_patrol = (ImageView) findViewById(R.id.iv_ski_patrol);
 		rgViews = (RadioGroup) findViewById(R.id.rg_views);
@@ -253,6 +255,7 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		ll_track.setOnClickListener(this);
 		ll_add_friends.setOnClickListener(this);
 		ll_profile.setOnClickListener(this);
+		ll_weather.setOnClickListener(this);
 		map.setOnMapLongClickListener(this);
 		map.setOnMapClickListener(this);
 		iv_profile_pic.setOnClickListener(this);
@@ -346,6 +349,9 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		case R.id.iv_ski_patrol:
 			new DlgSkiPatrolConfirmation(this, this).show();
 			break;
+		case R.id.ll_weather:
+			displayView(6);
+			break;
 		}
 	}
 
@@ -370,6 +376,12 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 		case 5:
 			
 			 fragment = new ProfileFragment(this, UserType_flag, profile_id);
+			 UserType_flag = true;
+			 
+			break;
+		case 6:
+			
+			 fragment = new WeatherFragment(this);
 			 UserType_flag = true;
 			 
 			break;
@@ -401,6 +413,10 @@ public class HomeView extends BaseActivity implements OnFriendDialogListener {
 			break;
 		case 5:
 			tv_page_title.setText(getCustomText("VIEW", "PROFILE"));
+			rgViews.setVisibility(View.GONE);
+			break;
+		case 6:
+			tv_page_title.setText(getCustomText("WEATHER", "REPORT"));
 			rgViews.setVisibility(View.GONE);
 			break;
 		}
