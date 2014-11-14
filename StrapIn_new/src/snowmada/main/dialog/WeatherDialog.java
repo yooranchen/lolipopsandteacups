@@ -62,7 +62,7 @@ public class WeatherDialog extends Dialog implements OnStationSelect {
 
 	@Override
 	public void onStationSelect(String name, String lat, String lng) {
-		Toast.makeText(base, name, 1000).show();
+		//Toast.makeText(base, name, 1000).show();
 
 		listenr.onSelectStation(name, lat, lng);
 		dismiss();

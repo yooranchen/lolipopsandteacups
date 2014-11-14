@@ -4,15 +4,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
-
 import snowmada.main.dialog.WeatherDialog;
 import snowmada.main.dialog.WeatherDialog.OnStationSelectListener;
 import snowmada.main.network.HttpClientGet;
 import snowmada.main.view.BaseActivity;
 import snowmada.main.view.R;
 import android.annotation.SuppressLint;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,10 +18,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @SuppressLint("ValidFragment")
 public class WeatherFragment extends Fragment implements OnClickListener, OnStationSelectListener {
@@ -32,10 +32,12 @@ public class WeatherFragment extends Fragment implements OnClickListener, OnStat
 	private Button btn_select_station;
 	private WeatherDialog wDlg;
 	private TextView tv_selected_station;
-	private double dlat, dlng;
+	private Double dlat, dlng;
 	private TextView tv_current_temp,tv_max_temp,tv_min_temp,tv_humidity,tv_wind_speed,tv_weather,tv_snow;
 	private LinearLayout ll_weather_layout;
-	
+	private ImageView btn_refresh;
+	private Animation animation;
+	private boolean flag = false;
 
 	@SuppressLint(value = { "ValidFragment" })
 	public WeatherFragment(BaseActivity b) {
@@ -54,9 +56,13 @@ public class WeatherFragment extends Fragment implements OnClickListener, OnStat
 		tv_weather = (TextView)mView.findViewById(R.id.tv_weather);
 		ll_weather_layout = (LinearLayout)mView.findViewById(R.id.ll_weather_layout);
 		tv_snow = (TextView)mView.findViewById(R.id.tv_snow);
+		btn_refresh = (ImageView)mView.findViewById(R.id.btn_refresh);
 		ll_weather_layout.setVisibility(View.GONE);
 		btn_select_station.setOnClickListener(this);
 		tv_selected_station.setOnClickListener(this);
+		btn_refresh.setOnClickListener(this);
+		animation = AnimationUtils.loadAnimation(base, R.anim.rotate_around_center_point);
+        
 		return mView;
 	}
 
@@ -77,6 +83,15 @@ public class WeatherFragment extends Fragment implements OnClickListener, OnStat
 		case R.id.btn_select_station:
 			wDlg = new WeatherDialog(base, this);
 			wDlg.show();
+			break;
+		case R.id.btn_refresh:
+			if((dlat!=null) && (dlng !=null)){
+				flag = true;
+				btn_refresh.startAnimation(animation);
+				new WeatherAsync().execute();
+			}else{
+				Toast.makeText(base, "Please select a station", Toast.LENGTH_LONG).show();
+			}
 			break;
 
 		}
@@ -114,25 +129,36 @@ public class WeatherFragment extends Fragment implements OnClickListener, OnStat
 							
 							tv_humidity.setText(""+(json.getJSONObject("main").getInt("humidity")));
 							
-							st = String.format("%1$,.1f", json.getJSONObject("wind").getDouble("speed")*3600.0d);
-							tv_wind_speed.setText(""+st+"m/Hr");
+							st = String.format("%1$,.1f", json.getJSONObject("wind").getDouble("speed")*2.2369d);
+							tv_wind_speed.setText(""+st+" mph");
 							
 							JSONArray jArr = json.getJSONArray("weather");
+							String w = "";
 							for(int i=0; i<jArr.length(); i++){
 								JSONObject jObj = jArr.getJSONObject(i);
+								if(i == 0){
+									w = jObj.getString("description");
+								}
+								if(i == 1){
+									w = w+" , "+jObj.getString("description");
+								}
 								tv_weather.setText(jObj.getString("description"));
 							}
 							
 							if(json.has("snow")){
-								tv_snow.setText(""+json.getInt("3h")+" Inch");	
+								
+								tv_snow.setText(""+String.format("%1$,.2f",json.getJSONObject("snow").getDouble("3h"))+" Inch");	
 							}else{
-								tv_snow.setText("0 Inch");	
+								tv_snow.setText("0.00 Inch");	
 							}
 							
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-						
+						if(flag){
+							flag = false;
+							btn_refresh.clearAnimation();
+						}
 					}
 				});
 			}
