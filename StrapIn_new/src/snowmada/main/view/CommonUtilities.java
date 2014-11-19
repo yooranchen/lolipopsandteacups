@@ -10,7 +10,10 @@ public final class CommonUtilities {
 	public static final String SENDER_ID = "110551332890";
 	public static final String TAG = "snomada";
 	public static final String DISPLAY_MESSAGE_ACTION = "com.androidhive.pushnotifications1.DISPLAY_MESSAGE";
+	public static final String DISPLAY_CHAT_MESSAGE_ACTION = "com.androidhive.pushnotifications1.DISPLAY_CHAT_MESSAGE";
+	
 	public static final String EXTRA_MESSAGE = "message";
+	public static final String CHAT_MESSAGE = "chat";
 
 	public static void displayMessage(Context context, String message) {
 		Intent intent = new Intent(DISPLAY_MESSAGE_ACTION);

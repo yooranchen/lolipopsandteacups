@@ -152,6 +152,17 @@ public class SigninView extends BaseActivity {
 				application.getUserinfo().setSession(true);
 				startActivity(new Intent(SigninView.this, HomeView.class));
 				SigninView.this.finish();
+				
+				/*signin_progress.setVisibility(View.VISIBLE);
+				first_name = "Brenda";
+				last_name = "Vwj";
+				dob = "1988/10/10";
+				user_id = "606193454";
+				image = "https://graph.facebook.com/" + user_id + "/picture";
+				application.getUserinfo().setUser(first_name, last_name, user_id, image, dob);
+				application.getUserinfo().setSession(true);
+				startActivity(new Intent(SigninView.this, HomeView.class));
+				SigninView.this.finish();*/
 			}
 		}
 	}

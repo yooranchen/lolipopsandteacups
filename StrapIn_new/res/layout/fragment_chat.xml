@@ -31,6 +31,7 @@
         android:weightSum="1" >
 
         <LinearLayout
+            android:id="@+id/ll_emoji"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.20"
@@ -54,7 +55,7 @@
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/editText1"
+                android:id="@+id/et_input_box"
                 android:layout_width="match_parent"
                 android:background="@xml/chat_input_bg"
                 android:layout_height="fill_parent" >
@@ -70,12 +71,12 @@
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/btn_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_send"
                 android:text="Send"
-                android:textColor="#b5b7bf"
+                android:textColor="#8A8B92"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>

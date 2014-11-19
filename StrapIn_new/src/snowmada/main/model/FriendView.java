@@ -39,7 +39,7 @@ public class FriendView implements OnClickListener{
 	public boolean track;
 	public HomeView home;
 	
-	public FriendView(BaseActivity b,HomeView home,final String id,  String fname, String lname, boolean track){
+	public FriendView(BaseActivity b,HomeView home,final String id,  String fname, String lname, boolean track, Boolean online){
 		
 		base  = b;
 		this.id = id;	
@@ -47,6 +47,7 @@ public class FriendView implements OnClickListener{
 		this.track = track;
 		this.fname = fname;
 		this.lname = lname;
+		this.online = online;
 		mView = View.inflate(base, R.layout.friend_row1, null);
 		iv_user_image = (ImageView)mView.findViewById(R.id.iv_user_image);
 		tv_name = (TextView)mView.findViewById(R.id.tv_name);
@@ -65,7 +66,7 @@ public class FriendView implements OnClickListener{
 			
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				Toast.makeText(base, ""+isChecked, 1000).show();
+				//Toast.makeText(base, ""+isChecked, 1000).show();
 				if(isChecked){
 					cb_istrack.setChecked(true);
 				}else{

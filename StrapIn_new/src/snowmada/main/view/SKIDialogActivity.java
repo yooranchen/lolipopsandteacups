@@ -33,9 +33,9 @@ public class SKIDialogActivity extends BaseActivity{
 		skiPatrolAlertdialog.setContentView(R.layout.emergency_dialog);
 		
 		Button ok = (Button)skiPatrolAlertdialog.findViewById(R.id.iv_ok);
-		ok.setText(Html.fromHtml("<font color=\"#ffffff\">O</font><font color=\"#28b6ff\">K</font>"));
+		//ok.setText(Html.fromHtml("<font color=\"#ffffff\">O</font><font color=\"#28b6ff\">K</font>"));
 		TextView tv_alert = (TextView)skiPatrolAlertdialog.findViewById(R.id.tv_alert_text);
-		tv_alert.setText(Html.fromHtml("<font color=\"#ffffff\">ALERT</font>&nbsp;&nbsp;<font color=\"#28b6ff\">DIALOG</font>"));
+		//tv_alert.setText(Html.fromHtml("<font color=\"#ffffff\">ALERT</font>&nbsp;&nbsp;<font color=\"#28b6ff\">DIALOG</font>"));
 		
 		ok.setOnClickListener(new OnClickListener() {
 			

@@ -33,23 +33,22 @@
             android:layout_height="fill_parent"
             android:layout_weight="0.20"
             android:background="#4c4c4c"
-            android:padding="3dp"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="3dp" >
 
             <ImageView
                 android:id="@+id/btn_refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/btn_refresh" />
-
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_selected_station"
             android:layout_width="0dp"
-             android:layout_weight="0.80"
             android:layout_height="fill_parent"
+            android:layout_weight="0.80"
             android:background="#3c3c3c"
             android:gravity="center"
             android:text="STATION:  No Station Selected"
@@ -312,6 +311,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
@@ -329,9 +329,9 @@
 
                     <ImageView
                         android:id="@+id/imageView1"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/w_icon_3" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/w_icon_5" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -368,14 +368,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:text="humidity" />
+                            android:text="weather" />
 
                         <TextView
-                            android:id="@+id/tv_humidity"
+                            android:id="@+id/tv_weather"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="20\u00B0C"
-                            android:textSize="16sp" />
+                            android:text="Sky is Clear"
+                            android:textSize="21sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -480,6 +480,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
@@ -497,9 +498,9 @@
 
                     <ImageView
                         android:id="@+id/imageView1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/w_icon_5" />
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/w_icon_3" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -536,14 +537,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:text="weather" />
+                            android:text="humidity" />
 
                         <TextView
-                            android:id="@+id/tv_weather"
+                            android:id="@+id/tv_humidity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sky is Clear"
-                            android:textSize="21sp" />
+                            android:text="20\u00B0C"
+                            android:textSize="16sp" />
                     </LinearLayout>
 
                     <LinearLayout

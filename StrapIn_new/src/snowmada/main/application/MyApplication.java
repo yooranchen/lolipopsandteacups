@@ -14,6 +14,7 @@ public class MyApplication extends Application {
 	public UserInfo userinfo;
 	public GoogleMap map;
 	public ArrayList<FriendBean> friendArr;
+	
 	//public boolean isFriendRefresh = false;
 	
 	public TrackLocation track;
